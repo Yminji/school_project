@@ -9,7 +9,7 @@
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <head>
    <meta charset="UTF-8">
-   <title>글보기</title>
+   <title>IC 랭크</title>
    <style>
      #tr_btn_modify{
        display:none;
@@ -77,6 +77,7 @@
  </script>
 </head>
 <body>
+	<%@ include file="../fix/header.jsp" %>
   <form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
   <table  border=0  align="center">
   <tr>

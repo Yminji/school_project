@@ -209,9 +209,7 @@ public class BoardController extends HttpServlet {
 					articleMap.put(fileItem.getFieldName(), fileItem.getString(encoding));
 				} else {
 					System.out.println("파라미터명:" + fileItem.getFieldName());
-					//System.out.println("파일명:" + fileItem.getName());
 					System.out.println("파일크기:" + fileItem.getSize() + "bytes");
-					//articleMap.put(fileItem.getFieldName(), fileItem.getName());
 					if (fileItem.getSize() > 0) {
 						int idx = fileItem.getName().lastIndexOf("\\");
 						if (idx == -1) {
@@ -224,9 +222,9 @@ public class BoardController extends HttpServlet {
 						File uploadFile = new File(currentDirPath + "\\temp\\" + fileName);
 						fileItem.write(uploadFile);
 
-					} // end if
-				} // end if
-			} // end for
+					}
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

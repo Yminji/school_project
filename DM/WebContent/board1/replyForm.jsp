@@ -26,9 +26,10 @@
       }
   }  
 </script> 
-<title>답글쓰기 페이지</title>
+<title>IC 랭크</title>
 </head>
 <body>
+	<%@ include file="../fix/header.jsp" %>
  <h1 style="text-align:center">답글쓰기</h1>
   <form name="frmReply" method="post"  action="${contextPath}/board/addReply.do"   enctype="multipart/form-data">
     <table align="center">

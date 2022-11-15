@@ -23,7 +23,7 @@
    .cls2{text-align:center; font-size:30px;}
   </style>
   <meta charset="UTF-8">
-  <title>글목록창</title>
+  <title>IC 랭크</title>
 </head>
 <body>
 

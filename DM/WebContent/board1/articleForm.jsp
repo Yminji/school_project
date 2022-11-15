@@ -26,9 +26,10 @@
     obj.submit();
   }
 </script>
- <title>새글 쓰기 창</title>
+ <title>IC 랭크</title>
 </head>
 <body>
+	<%@ include file="../fix/header.jsp" %>
 <h1 style="text-align:center">새글 쓰기</h1>
   <form name="articleForm" method="post"   action="${contextPath}/board/addArticle.do"   enctype="multipart/form-data">
     <table border="0" align="center">
