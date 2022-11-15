@@ -1,4 +1,3 @@
-
 <style type="text/css">
 		#content{
 			width:70%;

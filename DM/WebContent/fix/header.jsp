@@ -50,6 +50,7 @@
 <body>
 
 	<header>
+		<p style="text-align:right; color:red; font-weight:bold;">Update<br> 2022/11/10 </p>
 		<p class="mainN"><a href="${contextPath}/festival/listFestival.do">IC 랭크</a></p>
 	
 		<ul>
@@ -60,8 +61,6 @@
 			<li><a href="${contextPath}/board/listArticles.do"  class="orange"><b>게시판</b></a></li>
 		</ul>
 		<br>
-		
-		<h4 align="center">업데이트 2022-11-10</h4><br>
 	</header>
 </body>
 </html>
