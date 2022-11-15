@@ -12,24 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>축제 순위</title>
-	<style type="text/css">
-		#content{
-			width:70%;
-			float:left;
-		}
-		#aside{
-			width:30%;
-			float:right;
-		}
-		.my_img{
-			position: absolute;
-			diplay:none;
-			
-		}
-		#check-btn{diplay:none;}
-		#check-btn:checked ~ .my_img{display:none;}
-		
-	</style>
+	<%@ include file="../fix/styleC.jsp" %>
 </head>
 <body>
 	<%@ include file="../fix/header.jsp" %>

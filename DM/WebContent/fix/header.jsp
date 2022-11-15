@@ -53,7 +53,7 @@
 	
 		<ul>
 			<li><a href="${contextPath}/festival/listFestival.do"  class="orange">축제</a></li>
-			<li><a href="#" class="orange">콘서트</a></li>
+			<li><a href="${contextPath}/concert/listConcert.do" class="orange">콘서트</a></li>
 			<li><a href="#" class="orange">영화</a></li>
 			<li><a href="${contextPath}/musical/listMusical.do" class="orange">뮤지컬</a></li>
 			<li><a href="${contextPath}/board/listArticles.do"  class="orange">게시판</a></li>

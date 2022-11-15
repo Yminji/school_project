@@ -1,4 +1,4 @@
-package musical;
+package concert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,14 +10,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
-
-public class MusicalDAO {
+public class ConcertDAO {
 	private DataSource dataFactory;
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
-	public MusicalDAO() {
+	public ConcertDAO() {
 		try {
 			Context ctx = new InitialContext();
 			Context envContext = (Context) ctx.lookup("java:/comp/env");
@@ -27,11 +25,11 @@ public class MusicalDAO {
 		}
 	}
 	
-	public List<MusicalVO> listMusical(){
-		List<MusicalVO> musicalList = new ArrayList<MusicalVO>();
+	public List<ConcertVO> listConcert(){
+		List<ConcertVO> concertList = new ArrayList<ConcertVO>();
 		try {
 			conn = dataFactory.getConnection();
-			String query = "select * from t_Musical order by no";
+			String query = "select * from t_Concert order by no";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -40,8 +38,8 @@ public class MusicalDAO {
 				String tag = rs.getString("tag");
 				String title = rs.getString("title");
 				String link = rs.getString("link");
-				MusicalVO musicalVO = new MusicalVO(no, tag, title, link);
-				musicalList.add(musicalVO);
+				ConcertVO concertVO = new ConcertVO(no, tag, title, link);
+				concertList.add(concertVO);
 			}
 			rs.close();
 			pstmt.close();
@@ -49,7 +47,7 @@ public class MusicalDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return musicalList;
+		return concertList;
 	}
 	
 	public List<SeasonVO> listSpring(){
@@ -57,7 +55,7 @@ public class MusicalDAO {
 		
 		try {
 			conn=  dataFactory.getConnection();
-			String query = "select * from MUSICALSPRING order by no";
+			String query = "select * from CONCERTSPRING order by no";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -82,7 +80,7 @@ public class MusicalDAO {
 		
 		try {
 			conn=  dataFactory.getConnection();
-			String query = "select * from MUSICALSUMMER order by no";
+			String query = "select * from CONCERTSUMMER order by no";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -107,7 +105,7 @@ public class MusicalDAO {
 		
 		try {
 			conn=  dataFactory.getConnection();
-			String query = "select * from MUSICALFALL order by no";
+			String query = "select * from CONCERTFALL order by no";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
@@ -132,7 +130,7 @@ public class MusicalDAO {
 		
 		try {
 			conn=  dataFactory.getConnection();
-			String query = "select * from MUSICALWINTER order by no";
+			String query = "select * from CONCERTWINTER order by no";
 			System.out.println(query);
 			pstmt = conn.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();

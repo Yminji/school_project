@@ -1,12 +1,12 @@
-package musical;
+package concert;
 
-public class MusicalVO {
+public class ConcertVO {
 	private int no;
 	private String tag;
 	private String title;
 	private String link;
 	
-	public MusicalVO(int no, String tag, String title, String link) {
+	public ConcertVO(int no, String tag, String title, String link) {
 		this.no = no;
 		this.tag = tag;
 		this.title = title;
