@@ -14,6 +14,8 @@
 	.mainN{
 			font-size:42px;
 			text-align:center;
+			font-weight:bolder;
+			font-family: fantasy;
 		}
 		ul{
 			margin : 0;
@@ -36,7 +38,6 @@
 			padding:8px 27px;
 			text-transform: uppercase;
 			text-decoration:none;
-			font-weight:bold;
 			color: #000000;
 			transition:all 0.3s ease-in-out;
 		}
@@ -52,11 +53,11 @@
 		<p class="mainN"><a href="${contextPath}/festival/listFestival.do">IC 랭크</a></p>
 	
 		<ul>
-			<li><a href="${contextPath}/festival/listFestival.do"  class="orange">축제</a></li>
-			<li><a href="${contextPath}/concert/listConcert.do" class="orange">콘서트</a></li>
-			<li><a href="#" class="orange">영화</a></li>
-			<li><a href="${contextPath}/musical/listMusical.do" class="orange">뮤지컬</a></li>
-			<li><a href="${contextPath}/board/listArticles.do"  class="orange">게시판</a></li>
+			<li><a href="${contextPath}/festival/listFestival.do"  class="orange"><b>축제</b></a></li>
+			<li><a href="${contextPath}/concert/listConcert.do" class="orange"><b>콘서트</b></a></li>
+			<li><a href="${contextPath}/movie/listMovie.do" class="orange"><b>영화</b></a></li>
+			<li><a href="${contextPath}/musical/listMusical.do" class="orange"><b>뮤지컬</b></a></li>
+			<li><a href="${contextPath}/board/listArticles.do"  class="orange"><b>게시판</b></a></li>
 		</ul>
 		<br>
 		

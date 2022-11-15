@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>뮤지컬 순위</title>
+<title>IC 랭크</title>
 	<%@ include file="../fix/styleC.jsp" %>
 </head>
 <body>
