@@ -17,7 +17,6 @@ public class BoardService {
 		int totArticles = boardDAO.selectTotArticles();
 		articlesMap.put("articlesList", articlesList);
 		articlesMap.put("totArticles", totArticles);
-		//articlesMap.put("totArticles", 170);
 		return articlesMap;
 	}
 

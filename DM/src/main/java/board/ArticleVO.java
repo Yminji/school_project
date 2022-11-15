@@ -40,4 +40,5 @@ public class ArticleVO {
 	public void setImageFileName(String imageFileName) {this.imageFileName=imageFileName;}
 	public void setId(String id) {this.id=id;}
 	public void setWriteDate(Date writeDate) {this.writeDate=writeDate;}
+	
 }

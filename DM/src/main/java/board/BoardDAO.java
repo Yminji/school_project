@@ -76,7 +76,7 @@ public class BoardDAO {
 		      article.setId(id);
 		      article.setWriteDate(writeDate);
 		      articlesList.add(article);	
-		   } //end while
+		   }
 		   rs.close();
 		   pstmt.close();
 		   conn.close();
