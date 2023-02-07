@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="mapper.mypage.bookMark">
+	<resultMap id="bookMarkResult" type="bookMarkVO">
+		<result property="RegNO" column="RegNO"/>
+		<result property="fstvl_id" column="fstvl_id"/>
+		<result property="member_id" column="member_id"/>
+		<result property="RegDate" column="RegDate"/>
+	</resultMap>
+	
+	<resultMap id="fstvlResult" type="fstvlVO">
+		<result property="fstvl_id" column="fstvl_id"/>
+		<result property="fstvlNm" column="fstvlNm"/>
+		<result property="opar" column="opar"/>
+		
+		<result property="fstvlStartDate" column="fstvlStartDate"/>
+		<result property="fstvlEndDate" column="fstvlEndDate"/>
+		<result property="fstvlNm" column="fstvlNm"/>
+		<result property="fstvlCo" column="fstvlCo"/>
+		<result property="mnst" column="mnst"/>
+		<result property="auspclnstt" column="auspclnstt"/>
+		<result property="suprtlnstt" column="suprtlnstt"/>
+		
+		<result property="phoneNumber" column="phoneNumber"/>
+		<result property="homepageUrl" column="homepageUrl"/>
+		<result property="relateInfo" column="relateInfo"/>
+		<result property="rdnmadr" column="rdnmadr"/>
+		<result property="lnmadr" column="lnmadr"/>
+	</resultMap>
+	<select id="selectBookMarkList" resultMap="bookMarkResult" parameterType="BookMarkVO">
+		<![CDATA[
+			select RegNO, fstvl_id, member_id, RegDate 
+			from t_bookMark 
+			where member_id = #{member_id}
+			order by RegNO desc
+		]]>
+	</select>
+	
+	<select id="selectFstvlList" resultMap="fstvlResult" parameterType="java.util.Map">
+		<![CDATA[
+			select f.*, i.fileName from fstvlInfo f, t_fstvl_image i
+			where f.fstvl_id = i.fstvl_id
+			and i.filetype = 'main_image'
+			and f.fstvl_id in
+		]]>	
+			<foreach item="item" collection="list" open="(" separator="," close=")">
+				#{item.fstvl_id}
+			</foreach>
+			order by f.fstvlStartDate
+	</select>
+	
+	<select id="selectCountInBookMark" resultType="String" parameterType="bookMarkVO">
+		<![CDATA[
+			select decode(count(*), 0, 'false', 'true') from t_bookMark
+			where fstvl_id=#{fstvl_id}
+			and member_id=#{member_id}
+		]]>	
+	</select>
+	
+	<insert id="insertFstvlInBookMark" parameterType="bookMarkVO">
+		<![CDATA[
+			insert into t_bookMark(RegNO, fstvl_id, member_id)
+			values(#{RegNO}, #{fstvl_id}, #{member_id}) 
+		]]>
+	</insert>
+	
+	<delete id="deleteBookMarkFstvl" parameterType="int">
+		<![CDATA[
+			delete from t_bookMark where RegNO = #{RegNO}
+		]]>
+	</delete> 
+	
+	<select id="selectMaxBookMarkId" resultType="int">
+		<![CDATA[
+			select nvl(max(RegNO), 0) +1 from t_bookMark
+		]]>
+	</select> 
+</mapper>
