@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.myspring.capstone.festival.vo.FstvlVO;
+import com.myspring.capstone.fstvl.vo.FstvlVO;
 import com.myspring.capstone.mypage.bookmark.dao.BookMarkDAO;
 import com.myspring.capstone.mypage.bookmark.vo.BookMarkVO;
 

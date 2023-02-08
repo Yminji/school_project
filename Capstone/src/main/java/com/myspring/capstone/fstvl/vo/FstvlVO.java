@@ -1,4 +1,4 @@
-package com.myspring.capstone.festival.vo;
+package com.myspring.capstone.fstvl.vo;
 
 public class FstvlVO {
 	private int fstvl_id;

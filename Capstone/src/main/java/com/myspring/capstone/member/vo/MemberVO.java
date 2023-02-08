@@ -1,5 +1,8 @@
 package com.myspring.capstone.member.vo;
 
+import org.springframework.stereotype.Component;
+
+@Component("memberVO")
 public class MemberVO {
 	private String member_id;
 	

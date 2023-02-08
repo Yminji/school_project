@@ -1,4 +1,4 @@
-package com.myspring.capstone.festival.vo;
+package com.myspring.capstone.fstvl.vo;
 
 import java.sql.Date;
 

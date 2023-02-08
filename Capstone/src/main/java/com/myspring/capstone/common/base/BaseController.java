@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.myspring.capstone.festival.vo.ImageFileVO;
+import com.myspring.capstone.fstvl.vo.ImageFileVO;
 
 public class BaseController {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\festival\\file_repo";

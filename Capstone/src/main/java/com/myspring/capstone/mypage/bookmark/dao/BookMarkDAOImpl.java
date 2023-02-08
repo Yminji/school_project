@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.myspring.capstone.festival.vo.FstvlVO;
+import com.myspring.capstone.fstvl.vo.FstvlVO;
 import com.myspring.capstone.mypage.bookmark.vo.BookMarkVO;
 
 @Repository("bookMarkDAO")

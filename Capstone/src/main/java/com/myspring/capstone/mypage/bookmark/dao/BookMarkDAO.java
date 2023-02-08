@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.myspring.capstone.festival.vo.FstvlVO;
+import com.myspring.capstone.fstvl.vo.FstvlVO;
 import com.myspring.capstone.mypage.bookmark.vo.BookMarkVO;
-
 public interface BookMarkDAO {
 	public List<BookMarkVO> selectBookMarkList(BookMarkVO bookMarkVO) throws DataAccessException;
 	

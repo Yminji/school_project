@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.fstvl">
+	<resultMap id="fstvlResult" type="fstvlVO">
+		<result property="fstvl_id" column="fstvl_id"/>
+		<result property="fstvlNm" column="fstvlNm"/>
+		<result property="opar" column="opar"/>
+		
+		<result property="fstvlStartDate" column="fstvlStartDate"/>
+		<result property="fstvlEndDate" column="fstvlEndDate"/>
+		<result property="fstvlNm" column="fstvlNm"/>
+		<result property="fstvlCo" column="fstvlCo"/>
+		<result property="mnst" column="mnst"/>
+		<result property="auspclnstt" column="auspclnstt"/>
+		<result property="suprtlnstt" column="suprtlnstt"/>
+		
+		<result property="phoneNumber" column="phoneNumber"/>
+		<result property="homepageUrl" column="homepageUrl"/>
+		<result property="relateInfo" column="relateInfo"/>
+		<result property="rdnmadr" column="rdnmadr"/>
+		<result property="lnmadr" column="lnmadr"/>
+	</resultMap>
+	
+	<resultMap id="imageResult" type="imageFileVO">
+		<result property="fstvl_id" column="goods_id"/>
+			<result property="fileName" column="fileName"/>
+			<result property="reg_id" column="reg_id"/>
+			<result property="image_id" column="image_id"/>
+			<result property="fileType" column="fileType"/>
+	</resultMap>
+	
+	<select id="selectFstvlDetail" resultMap="fstvlResult" parameterType="String">
+		<![CDATA[
+			select f.*, i_fileName from fstvl f, t_fstvl_image i
+			where f.fstvl_id = i.fstvl_id
+			and i.fileName='main_image'
+			and f.fstvl_id = #{fstvl_id}
+			order by f.fstvl_id
+		]]>
+	</select>
+	
+	<select id="selectFstvlDetailImage" resultMap="imageResult" parameterType="String">
+		<![CDATA[
+			select * from t_fstvl_image
+			where fileType != 'main_image'
+			and fstvl_id=#{fstvl_id}
+		]]>
+	</select>
+</mapper>
