@@ -4,7 +4,7 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.myspring.capstone.mypage.bookmark.vo.BookMarkVO" alias="bookMarkVO"></typeAlias>
+		<typeAlias type="com.myspring.capstone.bookmark.vo.BookMarkVO" alias="bookMarkVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.fstvl.vo.FstvlVO" alias="fstvlVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.fstvl.vo.ImageFileVO" alias="imageFileVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.member.vo.MemberVO" alias="memberVO"></typeAlias>

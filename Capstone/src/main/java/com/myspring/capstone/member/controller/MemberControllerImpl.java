@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	@Autowired
 	private MemberVO memberVO;
 	
-	@RequestMapping(value="/login.do", method=RequestMethod.POST)
+	@Override
+	@RequestMapping(value="/loginForm.do", method=RequestMethod.POST)
 	public ModelAndView login(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		memberVO = memberService.login(loginMap);
@@ -52,6 +54,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return mav;
 	}
 	
+	@Override
 	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response ) throws Exception{
 		ModelAndView mav = new ModelAndView();
@@ -62,39 +65,41 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return mav;
 	}
 	
-	@RequestMapping(value="/addMember.do", method=RequestMethod.POST)
-	public ResponseEntity addMember(@RequestParam("memberVO") MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		response.setContentType("text/html; charset=utf-8");
+	@Override
+	@RequestMapping(value="/memberForm.do", method=RequestMethod.POST)
+	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,
+        HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
-		
 		String message = null;
 		ResponseEntity resEntity = null;
-		
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			memberService.addMember(memberVO);
-			message += "<script>";
-			message += " alert('회원가입을 마쳤습니다. 로그인창으로 이동하겠습니다.')";
-			message += " location.href='"+request.getContextPath()+"/member/loginForm.do'";
-			message += "</script>";
-		}catch(Exception e) {
-			message += " <script>";
-			message += " alert('오류가 발생했습니다.')";
-			message += " loction.href='"+request.getContextPath()+"/member/memberForm.do'";
-			message += "</script>";
-			e.printStackTrace();
-		}
+		memberService.addMember(_memberVO);
+		message  = "<script>";
+		message +=" alert('회원 가입을 마쳤습니다.로그인창으로 이동합니다.');";
+		message += " location.href='"+request.getContextPath()+"/member/loginForm.do';";
+		message += " </script>";
 		
-		resEntity = new ResponseEntity(message, responseHeaders,HttpStatus.OK);
+		}catch(Exception e) {
+		message  = "<script>";
+		message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+		message += " location.href='"+request.getContextPath()+"/member/memberForm.do';";
+		message += " </script>";
+		e.printStackTrace();
+		}
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
 	
+	@Override
 	@RequestMapping(value="/overlapped.do", method=RequestMethod.POST)
 	public ResponseEntity overlapped(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ResponseEntity resEntity = null;
 		String result = memberService.overlapped(id);
-		resEntity = new ResponseEntity(result, HttpStatus.OK);
+		resEntity =new ResponseEntity(result, HttpStatus.OK);
+		System.out.println(result);
 		return resEntity;
 	}
 }

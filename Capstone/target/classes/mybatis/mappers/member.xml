@@ -19,23 +19,23 @@
 	
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
 		<![CDATA[
-			select decode(count(*), 1, 'true', 0, 'false')
+			select decode(count(*),1, 'true', 0, 'false')
 			from member
 			where member_id = #{id}
 		]]>
 	</select>
 	
-	<select id="insertNewMeber" parameterType="memberVO">
-	<![CDATA[
-		insert into member(
-			member_id,
-			member_pw,
-			member_name
-			) value(
-			#{member_id},
-			#{member_pw},
-			#{member_name}
+	<insert id="insertNewMember" parameterType="memberVO">
+		<![CDATA[
+			insert into member(
+				member_id,
+				member_pw,
+				member_name
+				) values(
+				#{member_id},
+				#{member_pw},
+				#{member_name}
 			)
-	]]>
-	</select>
+		]]>
+	</insert>
 </mapper>

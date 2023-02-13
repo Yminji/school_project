@@ -2,12 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="mapper.mypage.bookMark">
+<mapper namespace="mapper.bookmark">
 	<resultMap id="bookMarkResult" type="bookMarkVO">
-		<result property="RegNO" column="RegNO"/>
+		<result property="regNO" column="regNO"/>
 		<result property="fstvl_id" column="fstvl_id"/>
 		<result property="member_id" column="member_id"/>
-		<result property="RegDate" column="RegDate"/>
+		<result property="regDate" column="regDate"/>
+		<result property="content" column="content"/>
 	</resultMap>
 	
 	<resultMap id="fstvlResult" type="fstvlVO">
@@ -31,10 +32,10 @@
 	</resultMap>
 	<select id="selectBookMarkList" resultMap="bookMarkResult" parameterType="BookMarkVO">
 		<![CDATA[
-			select RegNO, fstvl_id, member_id, RegDate 
+			select regNO, fstvl_id, member_id, regDate , content
 			from t_bookMark 
 			where member_id = #{member_id}
-			order by RegNO desc
+			order by regNO desc
 		]]>
 	</select>
 	
@@ -61,20 +62,20 @@
 	
 	<insert id="insertFstvlInBookMark" parameterType="bookMarkVO">
 		<![CDATA[
-			insert into t_bookMark(RegNO, fstvl_id, member_id)
-			values(#{RegNO}, #{fstvl_id}, #{member_id}) 
+			insert into t_bookMark(regNO, fstvl_id, member_id, content)
+			values(#{regNO}, #{fstvl_id}, #{member_id}, #{content}) 
 		]]>
 	</insert>
 	
 	<delete id="deleteBookMarkFstvl" parameterType="int">
 		<![CDATA[
-			delete from t_bookMark where RegNO = #{RegNO}
+			delete from t_bookMark where regNO = #{regNO}
 		]]>
 	</delete> 
 	
 	<select id="selectMaxBookMarkId" resultType="int">
 		<![CDATA[
-			select nvl(max(RegNO), 0) +1 from t_bookMark
+			select nvl(max(regNO), 0) +1 from t_bookMark
 		]]>
 	</select> 
 </mapper>
