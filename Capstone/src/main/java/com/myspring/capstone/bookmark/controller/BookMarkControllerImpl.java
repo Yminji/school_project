@@ -38,11 +38,11 @@ public class BookMarkControllerImpl extends BaseController implements BookMarkCo
 		String viewName = (String)request.getAttribute("viewName"); 
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession(); 
-		//MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo"); //세션에서 회원정보를 가져옴
-		//String member_id = memberVO.getMember_id(); //회원 아이디를 가져옴
-		//bookMarkVO.setMember_id(member_id); //회원 아이디를 저장
-		//Map<String, List> bookMarkMap = bookMarkService.bookMarkList(bookMarkVO); //북마크 페이지에 표시할 정보를 가져옴
-		//session.setAttribute("bookMarkMap", bookMarkMap); //북마크 목록을 세션에 저장
+		MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo"); //세션에서 회원정보를 가져옴
+		String member_id =   memberVO.getMember_id(); //회원 아이디를 가져옴
+		bookMarkVO.setMember_id(member_id); //회원 아이디를 저장
+		Map<String, List> bookMarkMap = bookMarkService.bookMarkList(bookMarkVO); //북마크 페이지에 표시할 정보를 가져옴
+		session.setAttribute("bookMarkMap", bookMarkMap); //북마크 목록을 세션에 저장
 		return mav;
 	}
 	

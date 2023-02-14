@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta http-equiv="content-Type" content="text/html; charset=utf-8">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <c:if test='${not empty message}'>
@@ -27,8 +28,21 @@
 </c:if>
 </head>
 <body>
+	 <div class = "login-form">
+    <h1 align="center">로그인</h1> <br>
+    <form action="${contextPath}/member/loginForm.do" method="post">
+        아이디 <input type="text" name="member_id" class="text-field" 
+        autocomplete = "off" required> 
+        비밀번호 <input type="password" name="member_pw" class="text-field" 
+        autocomplete = "off" required>
+        <input type="submit" value="로그인" class="submit-btn">
+        <input type="submit" value="회원가입" class="submit-btn" onclick="location.href='${contextPath}/member/memberForm.do'">
+    </form>
+ </div>
+	
+	
+	<!--<div align="center" id="detail_table">
 	<h3>회원 로그인 창</h3>
-	<div id="detail_table">
 	<form action="${contextPath}/member/loginForm.do" method="post">
 		<table>
 			<tbody>
@@ -50,6 +64,6 @@
 		<br><br>
 			<a href="${contextPath}/member/memberForm.do">회원가입</a>
 	</form>
-	</div>
+	</div>  -->
 </body>
 </html>

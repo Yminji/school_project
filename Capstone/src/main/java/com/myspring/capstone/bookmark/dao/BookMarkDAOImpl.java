@@ -15,34 +15,34 @@ public class BookMarkDAOImpl implements BookMarkDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<BookMarkVO> selectBookMarkList(BookMarkVO BookMarkVO) throws DataAccessException{
-		List<BookMarkVO> bookMarkList = sqlSession.selectList("mapper.mypage.bookMark.selectBookMarkList", BookMarkVO);
+	public List<BookMarkVO> selectBookMarkList(BookMarkVO bookMarkVO) throws DataAccessException{
+		List<BookMarkVO> bookMarkList = sqlSession.selectList("mapper.bookmark.selectBookMarkList", bookMarkVO);
 		return bookMarkList;
 	}
 	
 	public List<FstvlVO> selectFstvlList(List<BookMarkVO> bookMarkList) throws DataAccessException{
-		List<FstvlVO> fstvlList = sqlSession.selectList("mapper.mypage.bookMark.selectFstvlList", bookMarkList);
+		List<FstvlVO> fstvlList = sqlSession.selectList("mapper.bookmark.selectFstvlList", bookMarkList);
 		return fstvlList;
 	}
 	
 	public boolean selectCountInBookMark(BookMarkVO bookMarkVO) throws DataAccessException{
-		String result = sqlSession.selectOne("mapper.mypage.bookMark.selectCountInBookMark", bookMarkVO);
+		String result = sqlSession.selectOne("mapper.bookmark.selectCountInBookMark", bookMarkVO);
 		return Boolean.parseBoolean(result);
 	}
 	
 	public void insertFstvlInBookMark(BookMarkVO bookMarkVO) throws DataAccessException{
 		int regNO = selectMaxBookMarkId();
 		bookMarkVO.setRegNO(regNO);
-		sqlSession.insert("mapper.mypage.bookMark.insertFstvlInBookMark", bookMarkVO);
+		sqlSession.insert("mapper.bookmark.insertFstvlInBookMark", bookMarkVO);
 	}
 	
 	public int selectMaxBookMarkId() throws DataAccessException{
-		int regNO = sqlSession.selectOne("mapper.mypage.bookMark.selectMaxBookMarkId");
+		int regNO = sqlSession.selectOne("mapper.bookmark.selectMaxBookMarkId");
 		return regNO;
 	}
 	
 	public void deleteBookMarkFstvl(int regNO) throws DataAccessException{
-		sqlSession.delete("mapper.mypage.bookMark.deleteBookMarkFstvl", regNO);
+		sqlSession.delete("mapper.bookmark.deleteBookMarkFstvl", regNO);
 	}
 }
 

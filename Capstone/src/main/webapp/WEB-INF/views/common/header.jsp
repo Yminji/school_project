@@ -6,11 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<link rel="stylesheet" href="${contextPath}/resources/css/memberForm.css">
+	   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar">
-
     <div class="navbar__logo">
        
         <i class="fa-solid fa-face-smile"></i>

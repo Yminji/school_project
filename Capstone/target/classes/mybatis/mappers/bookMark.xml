@@ -30,7 +30,7 @@
 		<result property="rdnmadr" column="rdnmadr"/>
 		<result property="lnmadr" column="lnmadr"/>
 	</resultMap>
-	<select id="selectBookMarkList" resultMap="bookMarkResult" parameterType="BookMarkVO">
+	<select id="selectBookMarkList" resultMap="bookMarkResult" parameterType="bookMarkVO">
 		<![CDATA[
 			select regNO, fstvl_id, member_id, regDate , content
 			from t_bookMark 
@@ -41,7 +41,7 @@
 	
 	<select id="selectFstvlList" resultMap="fstvlResult" parameterType="java.util.Map">
 		<![CDATA[
-			select f.*, i.fileName from fstvlInfo f, t_fstvl_image i
+			select f.*, i.fileName from fstvlInfo f, t_fstvl_imgae i
 			where f.fstvl_id = i.fstvl_id
 			and i.filetype = 'main_image'
 			and f.fstvl_id in

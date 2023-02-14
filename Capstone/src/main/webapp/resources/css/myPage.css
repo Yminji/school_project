@@ -44,6 +44,7 @@ button {
   transform: translate(-50%, -50%);
   transition: 0.3s;
 }
+
 /* 포커스 됐을 때 */
 button:focus {
   outline: 0;
