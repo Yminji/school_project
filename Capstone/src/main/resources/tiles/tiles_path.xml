@@ -7,9 +7,13 @@
 		<put-attribute name="title" value="지도"/>
 		<put-attribute name="body" value="/WEB-INF/views/path/path.jsp"/>
 	</definition>
-	
+	<!-- 
 	<definition name="/path/detail" extends="baseLayout">
 		<put-attribute name="title" value="지도"/>
 		<put-attribute name="body" value="/WEB-INF/views/path/detail.jsp"/>
+	</definition> -->
+	<definition name="/path/plan" extends="baseLayout">
+		<put-attribute name="title" value="계획"/>
+		<put-attribute name="body" value="/WEB-INF/views/path/plan.jsp"/>
 	</definition>
 </tiles-definitions>

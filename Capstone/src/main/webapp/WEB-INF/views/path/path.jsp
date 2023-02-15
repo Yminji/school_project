@@ -34,16 +34,16 @@
       <a href="${contextPath}/mypage/mypageMain.do">
         <img src="${contextPath}/resources/img/icon/home.svg" />
       </a>
-    </nav> -->
+    </nav> -->  
     
     <div class="featured">
       <div class="text-area">
         <h1 class="title stagger-item">동선</h1>
-      </div>
+      </div> 
     </div>
 
     <ul class="list">
-      <a href="${contextPath}/path/detail.do" style="color: black">
+      <a href="${contextPath}/path/plan.do" style="color: black">
         <li class="item mouse-effect stagger-item">
           <div class="num">1</div>
           <div class="infos">
