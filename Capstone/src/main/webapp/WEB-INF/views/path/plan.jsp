@@ -11,6 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/path.css" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
@@ -28,19 +29,38 @@
 				    <form onsubmit="searchPlaces(); return false;">
                     키워드 : <input type="text" value="입력하세요" id="keyword" size="20"> 
                     <button type="submit">검색하기</button> 
-                </form>
-			       
+                </form> 
 			</div>
-			
 		</div>
 		<hr>
 		<ul id="placesList"></ul>
 		<div id="pagination"></div>
-		
 		</div>
-		
 	</div>
-	
+	<ul class="list">
+	<c:choose>
+		<c:when test="${empty planList}">
+			<li class="item mouse-effect stagger-item">
+				<div id="plan">
+					<h2>저장된 동선이 없습니다.</h2>
+				</div>
+			</li>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="item" items="${planList}">
+     			<!-- <a href="${contextPath}/path/plan.do" style="color: black">  -->
+		        <li class="item mouse-effect stagger-item">
+		          <div class="num">1</div>
+		          <div class="infos">
+		            <div class="title">동선1</div>
+		            <div class="desc">동선제목1</div>
+		          </div>
+		        </li>
+		      <!--</a>  -->
+		     </c:forEach>
+		 </c:otherwise>
+	</c:choose>
+   	</ul>
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
 	<script type="text/javascript">
 	//마커를 담을 배열입니다
@@ -59,7 +79,7 @@
 	var ps = new kakao.maps.services.Places();  
 	
 	// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-	var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+	var infowindow = new kakao.maps.InfoWindow({ :1});
 	
 	// 키워드로 장소를 검색합니다
 	searchPlaces();
@@ -101,7 +121,7 @@
 	
 	    }
 	}
-	
+	//////////////////////
 	// 검색 결과 목록과 마커를 표출하는 함수입니다
 	function displayPlaces(places) {
 	  
@@ -249,8 +269,7 @@
 	// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 	// 인포윈도우에 장소명을 표시합니다
 	function displayInfowindow(marker, title) {
-	    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-	
+	    var content = '<div style="padding:5px;z-index:1;">' + title +'</div>';  
 	    infowindow.setContent(content);
 	    infowindow.open(map, marker);
 	}

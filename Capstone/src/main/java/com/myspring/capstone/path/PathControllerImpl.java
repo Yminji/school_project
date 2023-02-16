@@ -21,14 +21,14 @@ public class PathControllerImpl extends BaseController{
 		System.out.println("카카오 api 테스트");
 		return mav;
 	}
-	/*
+	
 	@RequestMapping(value="/detail.do", method=RequestMethod.GET)
 	public ModelAndView detail(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		System.out.println("카카오 api 테스트");
 		return mav;
-	}*/
+	}
 	
 	@RequestMapping(value="/plan.do", method=RequestMethod.GET)
 	public ModelAndView plan(HttpServletRequest request, HttpServletResponse response) {

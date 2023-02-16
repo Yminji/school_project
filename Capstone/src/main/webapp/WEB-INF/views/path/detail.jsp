@@ -2,104 +2,149 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>저장된 동선</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/main.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="${contextPath}/resources/css/detail.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
+<link rel="stylesheet" href="${contextPath}/resources/css/path.css" />
+<link rel="stylesheet" href="${contextPath}/resources/css/detail.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-<script>
-		var container = document.getElementById('map');
-		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
-			level: 3
-		};
 
-		var map = new kakao.maps.Map(container, options);
-	</script>
-   <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="${contextPath}/resources/css/animation.css"
-    />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 </head>
 <body>
-<div class="text-area">
-      <h1 class="title stagger-item">저장한 동선</h1>
-      <div class="container text-center">
-        <div class="row">
-          <div class="col">
-            남서울대
-          </div>
-          <div class="col">
-            두정역
-            <div>
-              <img src="${contextPath}/resources/img/arrow-right.svg" alt="">
-            </div>
-          </div>
-          <div class="col">
-            평택역
-          </div>
-        </div>
-      </div>
-    </div>
-    <p style="margin-top:-12px">
-    <em class="link">
-        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-        </a>
-    </em>
-</p>
-<div id="map" style="width:100%;height:350px;"></div>
+	 <br>
+      <h1 align="center" class="title stagger-item">여행 1</h1>
+	<br>
 
+	 <div class="map_wrap">
+		<div id="map" style="width:100%;height:100%;position:absolute;left:50px;overflow:hidden;"></div>
+		<div id="pagination"></div>
+	</div>
+	<div>
+	<ul class="list">
+	<c:choose>
+		<c:when test="${empty planList}">
+			<li class="item mouse-effect stagger-item">
+				<div id="plan">
+					<h2>저장된 동선이 없습니다.</h2>
+				</div>
+			</li>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="item" items="${planList}"> -->
+     			<!-- <a href="${contextPath}/path/plan.do" style="color: black"> -->
+		        <li class="item mouse-effect stagger-item">
+		          <div class="num">1</div>
+		          <div class="infos">
+		            <div class="title">동선1</div>
+		            <div class="desc">동선제목1</div>
+		          </div>
+		        </li> 
+		      <!--</a>  -->
+		     </c:forEach>
+		 </c:otherwise>
+	</c:choose>
+   	</ul>
+   	</div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
 <script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
-
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('서울 송파구 올림픽로 240', function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
+        center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level : 7
+    // 지도의 확대 레벨
+    };
+ 
+    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다 
+    var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
+ 
+    // 마커를 표시할 위치와 title 객체 배열입니다 
+    var positions = [ {
+        title : "카카오",
+        latlng : new kakao.maps.LatLng(33.450705, 126.570677)
+    }, {
+        title : "제주공항",
+        latlng : new kakao.maps.LatLng(33.5066211, 126.492810)
+    }, {
+        title : "테마파크",
+        latlng : new kakao.maps.LatLng(33.2906595, 126.322529)
+    }, {
+        title : "수목원",
+        latlng : new kakao.maps.LatLng(33.4696849, 126.493305)
+    } ];
+ 
+    // 마커 이미지의 이미지 주소입니다
+    var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+ 
+    for (var i = 0; i < positions.length; i++) {
+ 
+        // 마커 이미지의 이미지 크기 입니다
+        var imageSize = new daum.maps.Size(24, 35);
+ 
+        // 마커 이미지를 생성합니다    
+        var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+ 
+        // 마커를 생성합니다
+        var marker = new daum.maps.Marker({
+            map : map, // 마커를 표시할 지도
+            position : positions[i].latlng, // 마커를 표시할 위치
+            title : positions[i].title,
+            image : markerImage
+        // 마커 이미지 
         });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">롯데월드</div>'
+    }
+ 
+    var linePath;
+    var lineLine = new daum.maps.Polyline();
+    var distance;
+ 
+    for (var i = 0; i < positions.length; i++) {
+        if (i != 0) {
+            linePath = [ positions[i - 1].latlng, positions[i].latlng ] //라인을 그리려면 두 점이 있어야하니깐 두 점을 지정했습니다
+        }
+        ;
+        lineLine.setPath(linePath); // 선을 그릴 라인을 세팅합니다
+ 
+        var drawLine = new daum.maps.Polyline({
+            map : map, // 선을 표시할 지도입니다 
+            path : linePath,
+            strokeWeight : 3, // 선의 두께입니다 
+            strokeColor : '#db4040', // 선의 색깔입니다
+            strokeOpacity : 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeStyle : 'solid' // 선의 스타일입니다
         });
-        infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
+ 
+        distance = Math.round(lineLine.getLength());
+        displayCircleDot(positions[i].latlng, distance);
+         
+    }
+ 
+    function displayCircleDot(position, distance) {
+        if (distance > 0) {
+            // 클릭한 지점까지의 그려진 선의 총 거리를 표시할 커스텀 오버레이를 생성합니다
+            var distanceOverlay = new daum.maps.CustomOverlay(
+                    {
+                        content : '<div class="dotOverlay">거리 <span class="number">'
+                                + distance + '</span>m</div>',
+                        position : position,
+                        yAnchor : 1,
+                        zIndex : 2
+                    });
+ 
+            // 지도에 표시합니다
+            distanceOverlay.setMap(map);
+        }
     } 
-});    
 </script>
     <!--
     <div class="map">

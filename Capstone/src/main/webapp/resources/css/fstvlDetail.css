@@ -1,0 +1,78 @@
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+body {
+  margin: 20px;
+}
+.goMyPage {
+  position: absolute;
+  top: 30px;
+  right: 26px;
+}
+dl {
+  margin: auto;
+  border-bottom: 0.0625rem solid red;
+  padding-bottom: 50px;
+  padding-top: 30px;
+}
+
+dt {
+  display: list-item;
+  list-style-type: '❗️';
+  padding-inline-start: 1ch;
+  float: left;
+  margin-right: 15px;
+  margin-left: 80px;
+}
+
+.text-area {
+  position: relative;
+  margin-top: 200px;
+  padding-bottom: 50px;
+  text-align: center;
+  border-bottom: 0.0625rem solid #d1d1d1;
+}
+.detail_img {
+  width: 100%;
+  height: 400px;
+  text-align: center;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+.detailimg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.bookmark{
+	width:5%;
+	height:5%;
+	right:5%;
+	float:right;
+}
+.content {
+  line-height: 1.8rem;
+  word-spacing: 5px;
+  word-break: normal;
+  font-size: 15px;
+  padding-top: 40px;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+.nav {
+  border: 1px solid black;
+}
+.way {
+  position: absolute;
+  text-align: center;
+  width: 200px;
+  height: 50px;
+  margin-top: 150px;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.3s;
+}
+.map {
+  margin-top: 300px;
+}

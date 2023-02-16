@@ -33,7 +33,7 @@
 	
 	<select id="selectFstvlDetail" resultMap="fstvlResult" parameterType="String">
 		<![CDATA[
-			select f.*, i_fileName from fstvl f, t_fstvl_image i
+			select f.*, i_fileName from fstvlInfo f, t_fstvl_image i
 			where f.fstvl_id = i.fstvl_id
 			and i.fileName='main_image'
 			and f.fstvl_id = #{fstvl_id}
