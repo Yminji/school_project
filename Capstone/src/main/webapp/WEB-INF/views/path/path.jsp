@@ -50,12 +50,12 @@
         <li class="item mouse-effect stagger-item">
           <div class="num">1</div>
           <div class="infos">
-            <a href="${contextPath}/path/plan.do" style="color: black">
+            <a href="${contextPath}/path/detail.do" style="color: black">
             	<div class="title">여행1</div>
               </a>	
             <div class="desc">2023-01-02 ~ 2023-01-14</div>
           </div>
-          	<input type="submit" value="수정" onClick="location.href='${contextPath}/path/detail.do'" style="margin-left:70%">
+          	<input type="submit" value="수정" onClick="location.href='${contextPath}/path/plan.do'" style="margin-left:70%">
             <input type="submit" value="삭제" style="margin-left:10px">
         </li>
       

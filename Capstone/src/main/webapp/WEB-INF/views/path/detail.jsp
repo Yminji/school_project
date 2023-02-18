@@ -34,9 +34,13 @@
 	<c:choose>
 		<c:when test="${empty planList}">
 			<li class="item mouse-effect stagger-item">
-				<div id="plan">
-					<h2>저장된 동선이 없습니다.</h2>
-				</div>
+				  <li class="item mouse-effect stagger-item">
+		          <div class="num">1</div>
+		          <div class="infos">
+		            <div class="title">동선1</div>
+		            <div class="desc">동선제목1</div>
+		          </div>
+		        </li> 
 			</li>
 		</c:when>
 		<c:otherwise>

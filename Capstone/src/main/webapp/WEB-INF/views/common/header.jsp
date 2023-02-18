@@ -21,10 +21,12 @@
     <ul class="navbar__menu">
     	<c:choose>
     		<c:when test="${isLogOn == true and not empty memberInfo }">
+    			<li><a href="${contextPath}/fstvl/fstvlDetail.do">축제</a>
 		        <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
 		        <li><a href="${contextPath}/mypage/mypageMain.do">마이페이지</a>
 		    </c:when>
 		    <c:otherwise>
+		    	<li><a href="${contextPath}/fstvl/fstvlDetail.do">축제</a>
 		    	<li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
 		        <li><a href="${contextPath}/member/memberForm.do">회원가입</a></li>
 		        <li><a href="게시판/게시판.html">게시판</a></li>

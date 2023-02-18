@@ -38,7 +38,7 @@
 				//alert(data);
 			//	$('#message').append(data);
 				if(data.trim()=='add_success'){
-					//imagePopup('open', '.layer01');	
+					alert("북마크에 저장되었습니다.");	
 				}else if(data.trim()=='already_existed'){
 					alert("이미 북마크에 저장되어 있습니다.");	
 				}
@@ -58,32 +58,75 @@
 	<div class="text-area">
       <h1>${fstvl.fstvlNm}</h1>
     </div>
-	<a href="https://www.seoularirangfestival.com/intro_aboutfestival"><img class="bookmark"src="${contextPath}/resources/img/icon/bookmark.svg" alt="" /></a>
+	<a href="javascript:add_bookmark('${bookMarkMap.fstvl_id }')"><img class="bookmark"src="${contextPath}/resources/img/icon/bookmark.svg" alt="" /></a>
     <section>
       <div class="detail_img">
-        <a href="https://www.seoularirangfestival.com/intro_aboutfestival"><img class="detailimg" src="${contextPath}/resources/img/festival_test.jpg" alt="" /></a>
+        <a href="${fstvl.homepageUrl}"><img class="detailimg" src="${contextPath}/resources/img/festival_test.jpg" alt="" /></a>
       </div>
       <dl>
         <dt>일시</dt>
         <dd>${fstvl.fstvlStartDate} ~ ${fstvl.fstvlEndDate }</dd>
-        <dt>장소</dt>
+        <dt>개최장소</dt>
         <dd>${fstvl.opar}</dd>
-        <dt>주최</dt>
-        <dd>서울특별시, (사)서울아리랑페스티벌조직위원회</dd>
-        <dt>후원</dt>
-        <dd>문화체육관광부, 문화재청, 한국문화예술위원회, 한국관광공사, 제과전문그룹 크라운-해태</dd>
+        <dt>도로명주소</dt>
+        <dd>${fstvl.rdnmadr}</dd>
+        <dt>지번주소</dt>
+        <dd>${fstvl.lnmadr}</dd>
+        <dt>주관기관</dt>
+        <dd>${fstvl.mnst}</dd>
+        <dt>주최기관</dt>
+        <dd>${fstvl.auspclnstt}</dd>
+        <dt>후원기관</dt>
+        <dd>${fstvl.suprtlnstt}</dd>
+        <dt>전화번호</dt>
+        <dd>${fstvl.phoneNumber}</dd>
+        <dt>홈페이지</dt>
+        <dd><a href="${fstvl.homepageUrl}">${fstvl.homepageUrl}</a></dd>
       </dl>
     </section>
     <div class="content">
-      아리랑의 유네스코 인류무형문화유산 등재를 기념해 2013년부터 서울특별시와 (사)서울아리랑페스티벌조직위원회 공동주최로 매년 10월 서울 광화문광장 일대에서 여는 도심 속
-      복합문화예술축제입니다. 해마다 음악 · 무용 · 시각예술 등으로 아리랑의 예술적 영역을 확장하며 시대정신에 맞는 문화콘텐츠를 만들어 내는 서울의 대표 축제로 자리매김했습니다.
-      2019서울아리랑페스티벌은 조선시대 궁중문화와 서민문화가 한데 어우러졌던 광화문의 역사적 의미를 담아 ‘광화문, 아리랑을 잇다’를 주제로 펼쳐집니다. 궁중정재와 국내외 최고의
-      아티스트들로 구성된 아리랑슈퍼밴드가 선사하는 개막공연. 개성파 뮤지션들의 대표곡과 자신들의 감성으로 재편곡한 아리랑을 선보이는 광화문뮤직페스티벌. 전통공연예술의 맥을
-      이어가는 연희프로그램을 비롯해 전국의 모든 아리랑 보존회가 처음으로 광화문광장에 모여 한마음 한뜻으로 만드는 축제의 하이라이트 판놀이길놀이 등 다채로운 프로그램을 선보입니다.
+      ${fstvl.fstvlCo}
     </div>
 
-    <h1 class="way">오시는 길</h1>
-    <div class="map">
+    <h1 class="way">오시는 길</h1><br>
+    <div class="map_wrap">
+		<div id="map" style="width:80%;height:80%;position:absolute;left:50px;overflow:hidden;"></div>
+		<div id="pagination"></div>
+	</div><br>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
+	<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(${fstvl.latitude}, ${fstvl.longitude}), // 지도의 중심좌표
+	        level: 10 // 지도의 확대 레벨
+	    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	// 마커가 표시될 위치입니다 
+	var markerPosition  = new kakao.maps.LatLng(${fstvl.latitude}, ${fstvl.longitude}); 
+	
+	// 마커를 생성합니다
+	var marker = new kakao.maps.Marker({
+	    position: markerPosition
+	});
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	marker.setMap(map);
+	
+	var iwContent = '<div style="padding:5px;">${fstvl.fstvlNm} <br><a href="https://map.kakao.com/link/map/${fstvl.opar},${fstvl.latitude}, ${fstvl.longitude}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${fstvl.opar},${fstvl.latitude}, ${fstvl.longitude}" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	    iwPosition = new kakao.maps.LatLng(${fstvl.latitude}, ${fstvl.longitude}); //인포윈도우 표시 위치입니다
+	
+	// 인포윈도우를 생성합니다
+	var infowindow = new kakao.maps.InfoWindow({
+	    position : iwPosition, 
+	    content : iwContent 
+	});
+	  
+	// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+	infowindow.open(map, marker); 
+	</script>
+   <!--  <div class="map">
       <center>
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.294671610935!2d126.97456675059104!3d37.57167833149275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca2eb421c44ad%3A0xe955a50c118085f8!2z6rSR7ZmU66y46rSR7J6l!5e0!3m2!1sko!2skr!4v1676454834251!5m2!1sko!2skr"
@@ -96,6 +139,6 @@
         ></iframe>
       </center>
       >
-    </div>
+    </div> -->
 </body>
 </html>

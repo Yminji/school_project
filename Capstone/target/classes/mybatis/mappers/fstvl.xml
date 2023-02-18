@@ -32,18 +32,16 @@
 	</resultMap>
 	
 	<select id="selectFstvlDetail" resultMap="fstvlResult" parameterType="String">
-		<![CDATA[
-			select f.*, i_fileName from fstvlInfo f, t_fstvl_image i
-			where f.fstvl_id = i.fstvl_id
-			and i.fileName='main_image'
-			and f.fstvl_id = #{fstvl_id}
-			order by f.fstvl_id
+		<![CDATA[  
+			select* from fstvlInfo
+			where fstvl_id = #{fstvl_id}
+
 		]]>
 	</select>
 	
 	<select id="selectFstvlDetailImage" resultMap="imageResult" parameterType="String">
 		<![CDATA[
-			select * from t_fstvl_image
+			select * from t_fstvl_imgae
 			where fileType != 'main_image'
 			and fstvl_id=#{fstvl_id}
 		]]>

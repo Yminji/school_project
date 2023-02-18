@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
-<link rel="stylesheet" href="${contextPath}/resources/css/path.css" />
+<!-- <link rel="stylesheet" href="${contextPath}/resources/css/path.css" > -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
@@ -37,6 +37,7 @@
 		<div id="pagination"></div>
 		</div>
 	</div>
+	
 	<ul class="list">
 	<c:choose>
 		<c:when test="${empty planList}">
@@ -61,6 +62,7 @@
 		 </c:otherwise>
 	</c:choose>
    	</ul>
+   	
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
 	<script type="text/javascript">
 	//마커를 담을 배열입니다
@@ -79,7 +81,7 @@
 	var ps = new kakao.maps.services.Places();  
 	
 	// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-	var infowindow = new kakao.maps.InfoWindow({ :1});
+	var infowindow = new kakao.maps.InfoWindow({ zindex:1});
 	
 	// 키워드로 장소를 검색합니다
 	searchPlaces();
