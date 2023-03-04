@@ -10,24 +10,27 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
-<!-- <link rel="stylesheet" href="${contextPath}/resources/css/path.css" > -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
+<!-- <link rel="stylesheet" href="${contextPath}/resources/css/path.css" > --> 
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
+<style>
+#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:22%;margin:10px 0 10px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.9);z-index: 1;font-size:12px;border-radius: 10px;}
+a{text-decoration:none;}
+</style>
 
 </head>
 <body>
 <br><br>
 	<div class="map_wrap">
-	<div id="map" style="width:100%;height:100%;position:absolute;left:50px;overflow:hidden;"></div>
+	<div id="map" style="width:100%;height:100%;position:absolute;overflow:hidden;"></div>
 		<div id="menu_wrap" class="bg_white">
 			<div class="option">
 			    <div>
 				    <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="입력하세요" id="keyword" size="20"> 
+                    키워드 : <input type="text" value="입력하세요" id="keyword" size="17"> 
                     <button type="submit">검색하기</button> 
                 </form> 
 			</div>
@@ -123,6 +126,7 @@
 	
 	    }
 	}
+	
 	//////////////////////
 	// 검색 결과 목록과 마커를 표출하는 함수입니다
 	function displayPlaces(places) {

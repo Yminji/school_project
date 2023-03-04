@@ -1,5 +1,5 @@
-* {
-  font-family: 'Noto Sans KR', sans-serif;
+.bodyrange {
+  margin: 10px;
 }
 .text-area {
   margin: 24px;
@@ -12,18 +12,15 @@
 .text-area .desc {
   margin-top: 12px;
 }
-
-.goMyPage {
-  position: absolute;
-  top: 30px;
-  right: 26px;
-}
-
+a{text-decoration:none;}
+#text a{color:black;}
+#text a:hover{color:red;}
 .card {
-  position: relative;
-  margin: auto;
+	float:left;
 }
-
+.div{
+	float:left;
+}
 .head-title {
   border-bottom: 0.0625rem solid #f2f2f2;
   border-bottom-width: auto;

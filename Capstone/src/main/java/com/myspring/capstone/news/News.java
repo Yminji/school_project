@@ -11,18 +11,18 @@ public class News {
 
 	public static void main(String[] args) throws IOException{
 		
-		int page = 3;
-		
-		for(int j = 0; j < page; j++) {
-			String url = "https://news.naver.com/main/list.naver?mode=LS2D&sid2=237&sid1=103&mid=shm&date=20230119&page="+j; 
+		//int page = 3;
+		String fstvlNm = "대나무축제";
+		//for(int j = 0; j < page; j++) {
+			String url = "https://search.naver.com/search.naver?sm=tab_hty.top&where=image&query="+fstvlNm+"&tqi=h%2FWJNlprvToss4jmOq0ssssst5N-285232"; 
 			Document doc = Jsoup.connect(url).get(); //Jsoup에 있는 connect 메소드를 호출하는데 파라미터로 주소 url의 전체 내용을 가져와 document에 저장
-			Elements elements = doc.getElementsByAttributeValue("class", "list_body newsflash_body"); //class에 해당하는 값을 가지는 모든 tag를 받아야 됨
+			Elements elements = doc.getElementsByAttributeValue("class", "photo_bx api_ani_send _photoBox"); //class에 해당하는 값을 가지는 모든 tag를 받아야 됨
 			
 			Element element = elements.get(0); //Elements는 여러개라는 전제이기 때문에 elements에 데이터가 하나만 달라고 요청, (첫번쨰 거 요청)
-			Elements photoElements = element.getElementsByAttributeValue("class", "photo");
+			Elements photoElements = element.getElementsByAttributeValue("class", "thumb");
 			
-			for(int i = 0; i < photoElements.size(); i++) {
-				Element articleElement = photoElements.get(i); //photoElements에 해당하는 기사 하나씩 가져옴
+			//for(int i = 0; i < photoElements.size(); i++) {
+				Element articleElement = photoElements.get(0); //photoElements에 해당하는 기사 하나씩 가져옴
 				Elements aElements = articleElement.select("a"); //a 태그를 가져옴
 				Element aElement = aElements.get(0);
 				
@@ -43,10 +43,10 @@ public class News {
 				String content = contentElement.text(); //text() 태그 안에 값만 나옴 -> <br>이란 거 없이 기사 내용만 나옴
 				System.out.println(contentElement.text());
 				 */
-			}
+			//}
 			
-			System.out.println(j+1 + "page 크롤링 종료");
+			//System.out.println(j+1 + "page 크롤링 종료");
 			System.out.println();
-		}
+		//}
 	}
 }

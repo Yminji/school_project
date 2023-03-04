@@ -1,8 +1,8 @@
-* {
+.fontG {
   font-family: 'Noto Sans KR', sans-serif;
 }
-body {
-  margin: 20px;
+.bodyrang {
+  margin: 10px;
 }
 .goMyPage {
   position: absolute;
@@ -15,7 +15,6 @@ dl {
   padding-bottom: 50px;
   padding-top: 30px;
 }
-
 dt {
   display: list-item;
   list-style-type: '❗️';

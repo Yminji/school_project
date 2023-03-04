@@ -1,114 +1,35 @@
 @charset "EUC-KR";
-	body{
-	    background: url(video.mp4) no-repeat
-	    center center;
-	    background-size: cover;
-	}
-	a{
-	    text-decoration: none;
-	    color: white;
-	}
-	.navbar{
-	    display: flex;
-	    justify-content: space-between;
-	    align-items: center;
-	    background-color: black;
-	    padding: 8px 12px;
-	    
-	    
-	}
-	.navbar__logo{
-	    font-size: 45px;
-	    color : white;
-	    font-family: 'Nanum Pen Script', cursive;
-	    
-	}
-	
-	.navbar__logo i{
-	    color : yellow;
-	}
-	
-	.navbar__menu{
-	    display: flex;
-	    list-style: none;
-	    padding-left: 0;
-	    padding-right : 50px;
-	    font-family: 'Nanum Pen Script', cursive;
-	}
-	
-	.navbar__menu li{
-	    padding-right : 50px;
-	    font-size: 32px;
-	    padding-left : 50px;
-	   
-	}
-	.navbar__menu li:hover{
-	    background-color: grey;
-	    border-radius: 4px;
-	    font-size : 50px,50px;
-	
-	}
-	.navbar__toogleBtn{
-	    position : absolute;
-	    right: 32px;
-	    top : 20px;
-	    font-size:25px ;
-	    color : yellow;
-	    display : none;
-	}
-	
-	@media screen and (max-width : 1000px){
-	    .navbar{
-	        flex-direction: column;
-	        align-items: flex-start;
-	        padding : 8px 24px;
-	    }
-	    .navbar__menu{
-	        display : none;
-	        flex-direction: column;
-	        align-items: center;
-	        width : 100%;
-	    }
-	    .navbar__menu li{
-	        width : 100%;
-	        text-align: center;
-	    }
-	    .navbar__toogleBtn{
-	        display : block;
-	    }
-	    .navbar__menu.active{
-	        display:flex;
-	    }
-	}
 	.login-form {
 	    box-sizing : border-box;
 	    margin : 0;
-	
 	    width : 400px;
 	    height : 500px;
 	    background-color: #EEEFF1;
 	    margin : 180px auto auto auto;
 	    border-radius: 5px;
 	    padding : 50px;
-	    font-family: 'Gamja Flower', cursive;
+	    font-weight: 400;
+	    font-size: 20px;
 	}
 	.text-field{
 	    font-size : 20px;
 	    border : 0;
 	    padding : 10px;
 	    border-radius: 5px;
-	    margin-bottom : 20px;
+	    margin-bottom : 15px;
 	    width : 100%;
+	    border: solid 1px #dadada;
 	}
 	.submit-btn {
-	    font-size : 20px;
-	    background-color: #1BBC9B;
-	    color : black;
-	    width : 100%;
-	    margin : 20px auto 20px auto;
-	    border : 0;
-	    padding : 10px;
+	    font-size: 20px;
+	    background-color: cadetblue;
+	    color: fff;
+	    width: 100%;
+	    margin: 18px auto 5px auto;
+	    border: 0;
+	    padding: 10px;
 	    border-radius: 5px;
+	    font-weight: 400;
 	}
 	.submit-btn:hover{
 	    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);

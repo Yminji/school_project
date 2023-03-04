@@ -8,5 +8,6 @@
 		<typeAlias type="com.myspring.capstone.fstvl.vo.FstvlVO" alias="fstvlVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.fstvl.vo.ImageFileVO" alias="imageFileVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.member.vo.MemberVO" alias="memberVO"></typeAlias>
+		<typeAlias type="com.myspring.capstone.path.vo.PathVO" alias="pathVO"/>
 	</typeAliases>
 </configuration>

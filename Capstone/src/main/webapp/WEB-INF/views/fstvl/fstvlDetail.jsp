@@ -4,6 +4,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="org.jsoup.Jsoup" %>
+<%@ page import="org.jsoup.nodes.Document" %>
+<%@ page import="org.jsoup.nodes.Element" %>
+<%@ page import="org.jsoup.select.Elements" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <c:set var="fstvl" value="${fstvlMap.fstvlVO }"/>
 <% request.setCharacterEncoding("utf-8"); %>
@@ -13,17 +17,18 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="${contextPath}/resources/css/fstvlDetail.css" />
 <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
 />
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet" />    
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="${contextPath}/resources/css/fstvlDetail.css" />
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	function add_bookmark(fstvl_id) {
 		$.ajax({
@@ -53,15 +58,18 @@
 		}); //end ajax	
 	}
 </script>
+
 </head>
 <body>
+<div class="fontG bodyrang">
 	<div class="text-area">
       <h1>${fstvl.fstvlNm}</h1>
     </div>
-	<a href="javascript:add_bookmark('${bookMarkMap.fstvl_id }')"><img class="bookmark"src="${contextPath}/resources/img/icon/bookmark.svg" alt="" /></a>
+	<a href="javascript:add_bookmark('${fstvlMap.fstvlVO.fstvl_id }')"><img class="bookmark"src="${contextPath}/resources/img/icon/bookmark.svg" alt="" /></a>
     <section>
       <div class="detail_img">
-        <a href="${fstvl.homepageUrl}"><img class="detailimg" src="${contextPath}/resources/img/festival_test.jpg" alt="" /></a>
+        <a href="${fstvl.homepageUrl}"> <img class="detailimg" src="${contextPath}/resources/img/festival_test.jpg" alt="" /></a>
+       
       </div>
       <dl>
         <dt>일시</dt>
@@ -81,17 +89,18 @@
         <dt>전화번호</dt>
         <dd>${fstvl.phoneNumber}</dd>
         <dt>홈페이지</dt>
-        <dd><a href="${fstvl.homepageUrl}">${fstvl.homepageUrl}</a></dd>
+        <dd><a href="${fstvl.homepageUrl}" style="color:black;">${fstvl.homepageUrl}</a></dd>
       </dl>
     </section>
     <div class="content">
       ${fstvl.fstvlCo}
     </div>
-
+	<br><br>
     <h1 class="way">오시는 길</h1><br>
     <div class="map_wrap">
-		<div id="map" style="width:80%;height:80%;position:absolute;left:50px;overflow:hidden;"></div>
+		<div id="map" style="width:100%;height:85%;position:absolute;left:6%;overflow:hidden;"></div>
 		<div id="pagination"></div>
+</div>
 	</div><br>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
 	<script>
@@ -142,3 +151,4 @@
     </div> -->
 </body>
 </html>
+<input type="hidden" name="isLogOn" id="isLogOn" value="${isLogOn }"/>

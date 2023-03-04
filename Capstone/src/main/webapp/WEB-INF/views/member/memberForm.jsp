@@ -42,7 +42,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${contextPath}/resources/css/memberForm.css">
+    <link rel="stylesheet" href="${contextPath}/resources/css/memberForm.css"> 
 
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
@@ -54,19 +54,21 @@
  <form action="${contextPath}/member/memberForm.do" method="post">
     <div id="content">
         <div>
-            <h1 align="center">회원가입</h1>
+            <h1 align="center" style="font-size:30px;">회원가입</h1>
             <h3 class="join_title">
                 <label for="id"> 아이디 </label>
             </h3>
+            <div class="parent">
             <span class="box int_id">
-               	<input type="text" name="_member_id" id="_member_id" class="int" maxlength="20"/>
-               
-				<input type="hidden" name="member_id" id="member_id"/>
-							
+               	<input type="text" name="_member_id" id="_member_id" class="int" maxlength="20" style="float:left;"/>
+				<input type="hidden" name="member_id" id="member_id"/> 
 				
             </span>
-            	<input type="button"  id="btnJoin1"  value="중복확인" onClick="fn_overlapped()" />
+            <div class="btn_over">
+            	<input type="button"  id="btnJoin1" class="submit-btn" value="중복확인" onClick="fn_overlapped()" />
+            	</div> 
             <span class="error_next_box"></span>
+            </div>
         </div>
         <div>
             <h3 class="join_title"><label for="pswd1"> 비밀번호</label></h3>
@@ -83,8 +85,8 @@
             <span class="error_next_box"></span>
         </div>
         <div class="btn_area">
-        			<input type="submit" id="btnJoin" value="회원가입"><br><br>
-					<input type="reset"  id="btnJoin" value="다시입력">
+        			<input type="submit" id="btnJoin" class="submit-btn" value="회원가입"><br><br>
+					<input type="reset"  id="btnJoin" class="submit-btn" value="다시입력">
             <!-- <button type="button"  onclick="location.href='login.html'">
                 <span>가입하기</span>
             </button> -->

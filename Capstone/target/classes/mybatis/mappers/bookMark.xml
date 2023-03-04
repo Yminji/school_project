@@ -32,10 +32,10 @@
 	</resultMap>
 	<select id="selectBookMarkList" resultMap="bookMarkResult" parameterType="bookMarkVO">
 		<![CDATA[
-			select regNO, fstvl_id, member_id, regDate , content
+			select regNO, fstvl_id, member_id, regDate
 			from t_bookMark 
 			where member_id = #{member_id}
-			order by regNO desc
+			order by regNO 
 		]]>
 	</select>
 	
@@ -62,8 +62,8 @@
 	
 	<insert id="insertFstvlInBookMark" parameterType="bookMarkVO">
 		<![CDATA[
-			insert into t_bookMark(regNO, fstvl_id, member_id, content)
-			values(#{regNO}, #{fstvl_id}, #{member_id}, #{content}) 
+			insert into t_bookMark(regNO, fstvl_id, member_id)
+			values(#{regNO}, #{fstvl_id}, #{member_id}) 
 		]]>
 	</insert>
 	

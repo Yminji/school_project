@@ -1,91 +1,10 @@
-@charset "EUC-KR";
-body{
-    background: url(video.mp4) no-repeat
-    center center;
-    background-size: cover;
-}
-a{
-    text-decoration: none;
-    color: white;
-}
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: black;
-    padding: 8px 12px;
-    
-    
-}
-.navbar__logo{
-    font-size: 45px;
-    color : white;
-    font-family: 'Nanum Pen Script', cursive;
-    
-}
-
-.navbar__logo i{
-    color : yellow;
-}
-
-.navbar__menu{
-    display: flex;
-    list-style: none;
-    padding-left: 0;
-    padding-right : 50px;
-    font-family: 'Nanum Pen Script', cursive;
-}
-
-.navbar__menu li{
-    padding-right : 50px;
-    font-size: 32px;
-    padding-left : 50px;
-   
-}
-.navbar__menu li:hover{
-    background-color: grey;
-    border-radius: 4px;
-    font-size : 50px,50px;
-
-}
-.navbar__toogleBtn{
-    position : absolute;
-    right: 32px;
-    top : 20px;
-    font-size:25px ;
-    color : yellow;
-    display : none;
-}
-
-@media screen and (max-width : 1000px){
-    .navbar{
-        flex-direction: column;
-        align-items: flex-start;
-        padding : 8px 24px;
-    }
-    .navbar__menu{
-        display : none;
-        flex-direction: column;
-        align-items: center;
-        width : 100%;
-    }
-    .navbar__menu li{
-        width : 100%;
-        text-align: center;
-    }
-    .navbar__toogleBtn{
-        display : block;
-    }
-    .navbar__menu.active{
-        display:flex;
-    }
-}
-
 #wrapper{
   position : relative;
-  height : 100%;
-  margin : 150px;
-  font-family: 'Gamja Flower', cursive;
+  height : 630px;
+  width: 550px;
+  margin: 180px auto auto auto;
+  background-color: #EEEFF1;
+  border-radius: 5px;
 }
 
 #content{
@@ -96,9 +15,9 @@ a{
 }
 .join_title{
     margin : 19px 0 8px;
-    font-size : 20px;
-    font-weight : 700;
-    margin:0px;
+    font-size : 21px;
+    font-weight : 400;
+    margin: 15px 0px 0px 0px;
 }
 .box {
     display: block;
@@ -109,8 +28,11 @@ a{
     box-sizing: border-box;
     background: #fff;
     position: relative;
+    border-radius: 5px;
 }
-
+.submit-btn:hover{
+	    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+	}
 .int {
     display: block;
     position: relative;
@@ -121,15 +43,20 @@ a{
     font-size: 15px;
 }
 
-
+.parent {
+      display: flex;
+      align-items: center;
+    }
 .box.int_id {
-    padding-right: 110px;
+    padding-right: 40px;
 }
 
 .box.int_pass {
     padding-right: 40px;
 }
-
+.box.int_name {
+    padding-right: 40px;
+}
 .box.int_pass_check {
     padding-right: 40px;
 }
@@ -157,19 +84,21 @@ a{
     padding: 21px 0 17px;
     border: 0;
     cursor: pointer;
-    color: #fff;
-    background-color: #08a600;
+    color: fff;
+    background-color: cadetblue;
     font-size: 20px;
     font-weight: 400;
+    border-radius: 5px;
 }
 
 #btnJoin1 {
-    width: 10%;
-    padding: 21px 0 17px;
-    border: 0;
+    width: 100%;
+    padding: 12px 20px 11px 20px;
     cursor: pointer;
-    color:black;
-    background-color: #fff;
-    font-size: 10px;
-    font-weight: 40;
+    color: black;
+    background-color:#dadada;
+    font-size: 20px;
+    font-weight: 400;
+    border: 1px solid #dadada;
+    border-radius: 5px;
 }

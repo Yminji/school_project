@@ -13,7 +13,7 @@ import com.myspring.capstone.bookmark.dao.BookMarkDAO;
 import com.myspring.capstone.bookmark.vo.BookMarkVO;
 import com.myspring.capstone.fstvl.vo.FstvlVO;
 
-@Service("BookService")
+@Service("bookService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class BookMarkServiceImpl implements BookMarkService{
 	@Autowired

@@ -1,28 +1,28 @@
 /* 헤더 */
-header {
+.beader {
   text-align: center;
   margin-top: 75px;
   margin-bottom: 75px;
 }
 
-header .thumb {
+.beader .thumb {
   width: 92px;
   height: 92px;
   border-radius: 50%;
   box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1), 0 12px 24px 0 rgba(0, 0, 0, 0.24);
 }
 
-header .thumb-wrapper {
+.beader .thumb-wrapper {
   position: relative;
   display: inline-block;
   margin-bottom: 36px;
 }
 
-header .greeting {
+.beader .greeting {
   margin-bottom: 10px;
 }
 
-header .mail {
+.beader .mail {
   padding: 8px 22px 10px 22px;
   background-color: rgba(0, 0, 0, 0.05);
   display: inline-block;
@@ -31,18 +31,18 @@ header .mail {
   margin-top: 18px;
 }
 button {
-  width: 120px;
-  height: 40px;
-  background-color: #00c7ae;
-  border: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 20px;
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.3s;
+  width: 123px;
+    height: 40px;
+    background-color: #00c7ae;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    position: relative;
+    top: 67%;
+    /* left: 5%; */
+    transform: translate(0%, 100%);
+    transition: 0.3s;
 }
 
 /* 포커스 됐을 때 */
@@ -65,7 +65,9 @@ button:hover {
   justify-content: center;
   align-items: center;
   border-bottom: 0.0625rem solid #f2f2f2;
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 700;
+  width: 98%;
 }
 
 .list .item .left {

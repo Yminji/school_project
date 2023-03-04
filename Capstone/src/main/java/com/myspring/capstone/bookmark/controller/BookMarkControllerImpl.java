@@ -66,10 +66,10 @@ public class BookMarkControllerImpl extends BaseController implements BookMarkCo
 	}
 	
 	@RequestMapping(value="/removeBookMarkFstvl.do", method=RequestMethod.POST)
-	public ModelAndView removeBookMarkFstvl(@RequestParam("RegNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public ModelAndView removeBookMarkFstvl(@RequestParam("regNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		bookMarkService.removeBookMarkFstvl(regNO);
-		mav.setViewName("redirect:/bookMark/bookMarkList.do");
+		mav.setViewName("redirect:/bookmark/bookMarkList.do");
 		return mav;
 	}
 }
