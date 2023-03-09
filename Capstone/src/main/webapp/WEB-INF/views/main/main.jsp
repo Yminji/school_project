@@ -15,23 +15,92 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
-	<!-- <script src="/main_slide/slide.js"></script> -->
+	
+	<script type="text/javascript">
+		var loopSearch = true;
+		function keywordSearch(){
+			if(loopSearch==false)
+				return;
+			var value=document.frmSearch.searchWord.value;
+			$.ajax({
+				type:"get",
+				async:true,
+				url:"${conetxtPath}/fstvl/keywordSearch.do",
+				data:{keyword:value},
+				success:function(data, textStatus){
+					var jsonInfo = JSON.parse(data);
+					displayResult(jsonInfo),
+				},
+				error:function(data, textStatus){
+					alert("에러가 발생했습니다."+data);
+				},
+				complete:function(data,textStatus){
+					
+				}
+			});
+		}
+		function displayResult(jsonInfo){
+			var count = jsonInfo.keyword.length;
+			if(count > 0) {
+			    var html = '';
+			    for(var i in jsonInfo.keyword){
+				   html += "<a href=\"javascript:select('"+jsonInfo.keyword[i]+"')\">"+jsonInfo.keyword[i]+"</a><br/>";
+			    }
+			    var listView = document.getElementById("suggestList");
+			    listView.innerHTML = html;
+			    show('suggest');
+			}else{
+			    hide('suggest');
+			} 
+		}
+		function select(selectedKeyword) {
+			 document.frmSearch.searchWord.value=selectedKeyword;
+			 loopSearch = false;
+			 hide('suggest');
+		}
+		function show(elementId) {
+			 var element = document.getElementById(elementId);
+			 if(element) {
+			  element.style.display = 'block';
+			 }
+			}
+		
+		function hide(elementId){
+		   var element = document.getElementById(elementId);
+		   if(element){
+			  element.style.display = 'none';
+		   }
+		}
+	</script>
 </head>
 	<video muted autoplay loop id="bgvid">
-	    <source src="${contextPath}/resources/img/this.mp4" type="video/mp4">
+	    <source src="${contextPath}/resources/img/this.mp4" type="video/mp4" style="width:100%; height:100%">
 	</video>
 <body>
 
 	<div class="container">
 	
-        <form action="#" class="box">
+        <form action="frmSearch"action="${contextPath}/fstvl/searchFstvl.do" class="box">
             <h1> 
                 무엇을 찾으시나요? </h1>
-            <input type = "text" placeholder="입력하세요" >
-            <input type = "submit" value = "검색">
+            <input name="fstvlNm" type = "text" placeholder="입력하세요" onKeyUp="keywordSearch()" >
+            <input type = "submit" name="search" value = "검색">
         </form>
         
     </div>
+     <div id="suggest">
+        <div id="suggestList"></div>
+   </div>
+    <script>
+    	var counter = 1;
+		    setInterval(function(){
+		    document.getElementById('radio'+counter).checked = true;
+		    counter++;
+		    if(counter > 4)
+		        counter = 1;
+		}, 3000)
+    </script>
+    
     <nav>
     <div class="slide_box">
         <div class="slider">

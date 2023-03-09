@@ -39,11 +39,35 @@
 		]]>
 	</select>
 	
+	<select id="selectFstvlList" resultMap="fstvlResult" parameterType="String">
+		<![CDATA[  
+			select* from fstvlInfo
+			order by fstvlStartDate desc
+
+		]]>
+	</select>
+	
 	<select id="selectFstvlDetailImage" resultMap="imageResult" parameterType="String">
 		<![CDATA[
 			select * from t_fstvl_imgae
 			where fileType != 'main_image'
 			and fstvl_id=#{fstvl_id}
+		]]>
+	</select>
+	 <select id="selectGoodsBySearchWord" resultMap="fstvlResult"   parameterType="String"  >
+     <![CDATA[
+			select * from fstvlInfo
+		    where fstvlNm like '%'|| #{searchWord} || '%'
+		    order by fstvlStartDate desc
+		]]>
+	</select>	
+	
+	<select id="selectKeywordSearch" resultType="String"   parameterType="String"  >
+	    <![CDATA[
+	        select * from fstvlInfo 
+	        where         
+	        fstvlNm like '%'|| #{keyword} || '%'
+	        order by fstvlStartDate desc
 		]]>
 	</select>
 </mapper>

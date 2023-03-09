@@ -31,7 +31,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css"/> 
 
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>  
 	<script type="text/javascript">
 	function delete_fstvl(regNO){
 		var regNO=Number(regNO);
@@ -58,6 +58,7 @@
     <hr style="border: solid 0.0625rem #f2f2f2; width: 50%" />
 	
     <!-- 축제카드 -->
+    <form name="bookMark">
 	    <c:choose>
 	    	<c:when test="${empty mybookMarkList}">
 	    		<tr>
@@ -67,18 +68,21 @@
 	    		</tr>
 	    	</c:when>
 	    	<c:otherwise>
-	    	<div class="row stagger-item" >
-	    		<c:forEach var="item" items="${mybookMarkList}" varStatus="cnt">
-	    		 <div class="col-12 col-md-6 col-lg-4" style="float:left">
+	    	<div class="row stagger-item">
+	    		<c:forEach var="item" items="${myFstvlList}" varStatus="cnt">
+	    		 <c:set var="regNO" value="${mybookMarkList[cnt.count-1].regNO}" />
+	    		 <div class="col-12 col-md-6 col-lg-4" style="float:left;">
 		          <div class="card">
-		            <img src="${contextPath}/resources/img/sample.jpg" class="card-img-top" alt="..." />
+		            <img src="${contextPath}/resources/img/fstvl/${item.fstvlNm}.png" class="card-img-top" alt="..." style="width:500px; height:500px"/>
 		            <div class="card-body"> 
 		            	<div id="text">
 		            		<h5 class="card-title">
-		              		<a class= "text" href="${contextPath}/fstvl/fstvlDetail.do?fstvl_id=${item.fstvl_id }">${item.fstvl_id}</a>
+		              		<a class= "text" href="${contextPath}/fstvl/fstvlDetail.do?fstvl_id=${item.fstvl_id}">${item.fstvlNm}</a>
 		              		</h5>
 		              	</div>
-		              	<a href="javascript:delete_fstvl('${regNO}')" class="btn btn-primary">삭제하기</a>
+		              	
+		              	<a href="javascript:delete_fstvl('${regNO}');" class="btn btn-primary">삭제하기</a>
+		              	
 		            </div>
 		          </div>
 		           </div>
@@ -86,6 +90,7 @@
 		          </div>
 		       </c:otherwise>
 		   </c:choose>
+		   </form>
         </div>
 
 </body>

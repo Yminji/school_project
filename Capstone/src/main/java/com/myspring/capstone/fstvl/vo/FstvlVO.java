@@ -1,5 +1,8 @@
 package com.myspring.capstone.fstvl.vo;
 
+import org.springframework.stereotype.Repository;
+
+@Repository("fstvlVO")
 public class FstvlVO {
 	private int fstvl_id;
 	private String fstvlNm;

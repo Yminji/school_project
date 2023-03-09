@@ -5,10 +5,9 @@ body{margin:0px;}
     width: auto; height: auto; z-index: -100;
     background: url(polina.jpg) no-repeat;
     background-size: fill;
+    
 }
-.navbar__logo i{
-    color : yellow;
-}
+
 a{
     color : white;
     text-decoration-line : none;
@@ -26,12 +25,6 @@ a:visited {
     
     padding: 8px 12px;
     
-    
-}
-.navbar__logo{
-    font-size: 45px;
-    color : white;
-    font-family: 'Nanum Pen Script', cursive;
     
 }
 

@@ -23,8 +23,20 @@ public class FstvlDAOImpl implements FstvlDAO{
 	}
 	
 	@Override
-	public List<ImageFileVO> selectFstvlDetailImage(int fstvl_id) throws DataAccessException{
-		List<ImageFileVO> imageList = (ArrayList) sqlSession.selectList("mapper.fstvl.selectFstvlDetailImage", fstvl_id);
-		return imageList;
+	public List<String> selectKeywordSearch(String keyword) throws DataAccessException{
+		List<String> list = (ArrayList)sqlSession.selectList("mapper.fstvl.selecyKeywordSearch", keyword);
+		return list;
 	}
+
+	@Override
+	public List<String> selectFstvlBySearchWord(String searchWord) throws DataAccessException {
+		ArrayList list = (ArrayList)sqlSession.selectList("mapper.fstvl.selectFstvlBySearchWord", searchWord);
+		return list;
+	}
+	
+	@Override
+	public List<FstvlVO> selectFstvlList(FstvlVO fstvlVO) throws DataAccessException{
+		List<FstvlVO> fstslList = sqlSession.selectList("mapper.fstvl.selectFstvlList", fstvlVO);
+		return fstslList;
+ 	}
 }

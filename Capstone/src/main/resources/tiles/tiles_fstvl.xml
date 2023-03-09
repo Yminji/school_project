@@ -7,4 +7,14 @@
 		<put-attribute name="title" value="축제 상세페이지"/>
 		<put-attribute name="body" value="/WEB-INF/views/fstvl/fstvlDetail.jsp"/>
 	</definition>
+	
+	<definition name="/fstvl/searchFstvl" extends="baseLayout">
+		<put-attribute name="title" value="축제 상세페이지"/>
+		<put-attribute name="body" value="/WEB-INF/views/fstvl/searchFstvl.jsp"/>
+	</definition>
+	
+	<definition name="/fstvl/fstvlList" extends="baseLayout">
+		<put-attribute name="title" value="축제 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/fstvl/fstvlList.jsp"/>
+	</definition>
 </tiles-definitions>

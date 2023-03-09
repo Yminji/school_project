@@ -35,6 +35,7 @@ public class BookMarkControllerImpl extends BaseController implements BookMarkCo
 	
 	@RequestMapping(value="/bookMarkList.do", method=RequestMethod.GET)
 	public ModelAndView bookMarkMain(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("utf-8");
 		String viewName = (String)request.getAttribute("viewName"); 
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession(); 

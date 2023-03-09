@@ -20,7 +20,7 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
-a{text-decoration:none;}
+a{text-decoration:none; color: white;}
 </style>
 </head>
 <body>

@@ -18,7 +18,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:22%;margin:10px 0 10px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.9);z-index: 1;font-size:12px;border-radius: 10px;}
-a{text-decoration:none;}
+a{text-decoration:none; color:white;}
 </style>
 
 </head>

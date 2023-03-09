@@ -22,7 +22,21 @@ public class FstvlServiceImpl implements FstvlService{
 		Map fstvlMap = new HashMap();
 		FstvlVO fstvlVO = fstvlDAO.selectFstvlDetail(fstvl_id);
 		fstvlMap.put("fstvlVO", fstvlVO);
-		List imgeList = fstvlDAO.selectFstvlDetailImage(fstvl_id);
 		return fstvlMap;
+	}
+	
+	public List<String> keywordSearch(String keyword) throws Exception{
+		List<String> list = fstvlDAO.selectKeywordSearch(keyword);
+		return list;
+	}
+	
+	public List<FstvlVO> searchFstvls(String searchWord) throws Exception{
+		List fstvlList = fstvlDAO.selectFstvlBySearchWord(searchWord);
+		return fstvlList;
+	}
+	
+	public List<FstvlVO> fstvlList(FstvlVO fstvlVO) throws Exception{
+		List fstvlList = fstvlDAO.selectFstvlList(fstvlVO);
+		return fstvlList;
 	}
 }

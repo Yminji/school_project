@@ -24,7 +24,7 @@
       crossorigin="anonymous"
 />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet" /> 
-<link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/main.css" />
+
 <link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="${contextPath}/resources/css/fstvlDetail.css" />
@@ -58,17 +58,20 @@
 		}); //end ajax	
 	}
 </script>
-
 </head>
 <body>
-<div class="fontG bodyrang">
+<div class="fontG bodyrang" id="text">
 	<div class="text-area">
       <h1>${fstvl.fstvlNm}</h1>
     </div>
-	<a href="javascript:add_bookmark('${fstvlMap.fstvlVO.fstvl_id }')"><img class="bookmark"src="${contextPath}/resources/img/icon/bookmark.svg" alt="" /></a>
+	<a href="javascript:add_bookmark('${fstvlMap.fstvlVO.fstvl_id }')">
+	<img class="bookmark"src="${contextPath}/resources/img/icon/black.jpg" 
+		onmouseover="this.src='${contextPath}/resources/img/icon/red.jpg'"
+        onmouseout="this.src='${contextPath}/resources/img/icon/black.jpg'"
+	/></a>
     <section>
-      <div class="detail_img">
-        <a href="${fstvl.homepageUrl}"> <img class="detailimg" src="${contextPath}/resources/img/festival_test.jpg" alt="" /></a>
+      <div class="detail_img" id="post">
+        <a href="${fstvl.homepageUrl}"> <img class="detailimg" src="${contextPath}/resources/img/fstvl/${fstvl.fstvlNm}.png" alt="" /></a>
        
       </div>
       <dl>
@@ -89,7 +92,7 @@
         <dt>전화번호</dt>
         <dd>${fstvl.phoneNumber}</dd>
         <dt>홈페이지</dt>
-        <dd><a href="${fstvl.homepageUrl}" style="color:black;">${fstvl.homepageUrl}</a></dd>
+        <dd><a href="${fstvl.homepageUrl}">${fstvl.homepageUrl}</a></dd>
       </dl>
     </section>
     <div class="content">
@@ -123,7 +126,7 @@
 	// 마커가 지도 위에 표시되도록 설정합니다
 	marker.setMap(map);
 	
-	var iwContent = '<div style="padding:5px;">${fstvl.fstvlNm} <br><a href="https://map.kakao.com/link/map/${fstvl.opar},${fstvl.latitude}, ${fstvl.longitude}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${fstvl.opar},${fstvl.latitude}, ${fstvl.longitude}" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	var iwContent = '<div style="width:101%; height:100%; padding:1px;">${fstvl.fstvlNm} <br><a href="https://map.kakao.com/link/map/${fstvl.opar},${fstvl.latitude}, ${fstvl.longitude}" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/${fstvl.opar},${fstvl.latitude}, ${fstvl.longitude}" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 	    iwPosition = new kakao.maps.LatLng(${fstvl.latitude}, ${fstvl.longitude}); //인포윈도우 표시 위치입니다
 	
 	// 인포윈도우를 생성합니다

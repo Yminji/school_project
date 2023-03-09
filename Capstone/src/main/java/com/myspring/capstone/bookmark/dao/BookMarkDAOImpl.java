@@ -16,12 +16,13 @@ public class BookMarkDAOImpl implements BookMarkDAO{
 	private SqlSession sqlSession;
 	
 	public List<BookMarkVO> selectBookMarkList(BookMarkVO bookMarkVO) throws DataAccessException{
-		List<BookMarkVO> bookMarkList = sqlSession.selectList("mapper.bookmark.selectBookMarkList", bookMarkVO);
+		List<BookMarkVO> bookMarkList = (List)sqlSession.selectList("mapper.bookmark.selectBookMarkList", bookMarkVO);
 		return bookMarkList;
 	}
 	
 	public List<FstvlVO> selectFstvlList(List<BookMarkVO> bookMarkList) throws DataAccessException{
-		List<FstvlVO> fstvlList = sqlSession.selectList("mapper.bookmark.selectFstvlList", bookMarkList);
+		List<FstvlVO> fstvlList;
+		fstvlList = sqlSession.selectList("mapper.bookmark.selectFstvlList", bookMarkList);
 		return fstvlList;
 	}
 	

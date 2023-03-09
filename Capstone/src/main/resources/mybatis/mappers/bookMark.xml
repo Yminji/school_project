@@ -41,15 +41,11 @@
 	
 	<select id="selectFstvlList" resultMap="fstvlResult" parameterType="java.util.Map">
 		<![CDATA[
-			select f.*, i.fileName from fstvlInfo f, t_fstvl_imgae i
-			where f.fstvl_id = i.fstvl_id
-			and i.filetype = 'main_image'
-			and f.fstvl_id in
-		]]>	
-			<foreach item="item" collection="list" open="(" separator="," close=")">
-				#{item.fstvl_id}
-			</foreach>
-			order by f.fstvlStartDate
+			select * from fstvlInfo where fstvl_id in
+		]]>
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item.fstvl_id}
+		</foreach>
 	</select>
 	
 	<select id="selectCountInBookMark" resultType="String" parameterType="bookMarkVO">
