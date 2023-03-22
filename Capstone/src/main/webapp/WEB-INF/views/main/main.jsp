@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
-	
+	<script src="http://code.jquery.com/jquery-latest.js"></script>  
 	<script type="text/javascript">
 		var loopSearch = true;
 		function keywordSearch(){
@@ -72,6 +72,11 @@
 		   }
 		}
 	</script>
+	<style type="text/css">
+	#suggest{
+		display:none; position: absolute; left: 830px; top:80px; border: 0.1px  solid #87cb42; z-index:3;font-weight: bold;background-color:#ffffff; 		
+	}
+	</style>
 </head>
 	<video muted autoplay loop id="bgvid">
 	    <source src="${contextPath}/resources/img/this.mp4" type="video/mp4" style="width:100%; height:100%">
@@ -80,10 +85,10 @@
 
 	<div class="container">
 	
-        <form action="frmSearch"action="${contextPath}/fstvl/searchFstvl.do" class="box">
+        <form name="frmSearch" action="${contextPath}/fstvl/searchFstvl.do" class="box">
             <h1> 
                 무엇을 찾으시나요? </h1>
-            <input name="fstvlNm" type = "text" placeholder="입력하세요" onKeyUp="keywordSearch()" >
+            <input name="searchWord" type = "text" placeholder="입력하세요" onKeyUp="keywordSearch()" >
             <input type = "submit" name="search" value = "검색">
         </form>
         
@@ -125,7 +130,7 @@
                 <div class="slide">      
                     <img src="${contextPath}/resources/img/a4.jpg" alt="">
                 </div>
-  
+  <!--<img src="${contextPath}/resources/img/fstvl/${item.fstvlNm}.png" alt="">  -->
                 <div class="navigation-auto">
                     <div class="auto-btn1"></div>
                     <div class="auto-btn2"></div>

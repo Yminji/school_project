@@ -54,7 +54,7 @@
 			and fstvl_id=#{fstvl_id}
 		]]>
 	</select>
-	 <select id="selectGoodsBySearchWord" resultMap="fstvlResult"   parameterType="String"  >
+	 <select id="selectFstvlBySearchWord" resultMap="fstvlResult"   parameterType="String"  >
      <![CDATA[
 			select * from fstvlInfo
 		    where fstvlNm like '%'|| #{searchWord} || '%'
@@ -64,7 +64,7 @@
 	
 	<select id="selectKeywordSearch" resultType="String"   parameterType="String"  >
 	    <![CDATA[
-	        select * from fstvlInfo 
+	        select fstvlNm from fstvlInfo 
 	        where         
 	        fstvlNm like '%'|| #{keyword} || '%'
 	        order by fstvlStartDate desc

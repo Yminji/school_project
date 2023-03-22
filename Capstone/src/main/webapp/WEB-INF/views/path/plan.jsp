@@ -14,16 +14,43 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
 <!-- <link rel="stylesheet" href="${contextPath}/resources/css/path.css" > --> 
-
+<script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:22%;margin:10px 0 10px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.9);z-index: 1;font-size:12px;border-radius: 10px;}
 a{text-decoration:none; color:white;}
 </style>
-
+<script type="text/javascript">
+	function add_path() {
+		$.ajax({
+			type : "post",
+			async : false, //false인 경우 동기식으로 처리한다.
+			url : "${contextPath}/path/addPlace.do",
+			data : {
+				latitude = latitude,
+				longitude = longitude,
+				placeName : placeName
+			},
+			success : function(data, textStatus) {
+				alert(data+" 추가했습닏다.");
+				
+			},
+			error : function(data, textStatus) {
+				alert("에러가 발생했습니다."+data);
+			},
+			complete : function(data, textStatus) {
+				//alert("작업을완료 했습니다");
+			}
+		}); //end ajax	
+	}
+</script>
 </head>
 <body>
-<br><br>
+<br>
+
+	<div class="plan_title">
+	<h1>제목 : <input type="text" name="title"></h1>
+	</div>
 	<div class="map_wrap">
 	<div id="map" style="width:100%;height:100%;position:absolute;overflow:hidden;"></div>
 		<div id="menu_wrap" class="bg_white">
@@ -40,15 +67,11 @@ a{text-decoration:none; color:white;}
 		<div id="pagination"></div>
 		</div>
 	</div>
-	
+	<div>${result}</div>
 	<ul class="list">
 	<c:choose>
 		<c:when test="${empty planList}">
-			<li class="item mouse-effect stagger-item">
-				<div id="plan">
-					<h2>저장된 동선이 없습니다.</h2>
-				</div>
-			</li>
+
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="item" items="${planList}">
@@ -65,7 +88,12 @@ a{text-decoration:none; color:white;}
 		 </c:otherwise>
 	</c:choose>
    	</ul>
-   	
+   	<input type="hidden" id="placeName" name="placeName" value="">
+	<input type="hidden" id="latitude" name="latitude" value="">
+	<input type="hidden" id="longitude" name="longitude" value="">
+	<div id="result"></div>
+	<input type="submit" value="저장">
+	
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
 	<script type="text/javascript">
 	//마커를 담을 배열입니다
@@ -113,6 +141,18 @@ a{text-decoration:none; color:white;}
 	
 	        // 페이지 번호를 표출합니다
 	        displayPagination(pagination);
+	        
+	     // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+	        // LatLngBounds 객체에 좌표를 추가합니다
+	        var bounds = new kakao.maps.LatLngBounds();
+
+	        for (var i=0; i<data.length; i++) {
+	            displayMarker(data[i]);    
+	            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+	        }       
+
+	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+	        map.setBounds(bounds);
 	
 	    } else if (status === kakao.maps.services.Status.ZERO_RESULT && data=='입력하세요') {
 	
@@ -151,20 +191,20 @@ a{text-decoration:none; color:white;}
 	        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
 	            marker = addMarker(placePosition, i), 
 	            itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
-	
+				
 	        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 	        // LatLngBounds 객체에 좌표를 추가합니다
 	        bounds.extend(placePosition);
-	
-	        // 마커와 검색결과 항목에 mouseover 했을때
+	        
+	    	// 마커와 검색결과 항목에 mouseover 했을때
 	        // 해당 장소에 인포윈도우에 장소명을 표시합니다
 	        // mouseout 했을 때는 인포윈도우를 닫습니다
-	        (function(marker, title) {
-	            kakao.maps.event.addListener(marker, 'mouseover', function() {
-	                displayInfowindow(marker, title);
+	        (function(marker, place) {
+	            kakao.maps.event.addListener(marker, 'click', function() {
+	            	displayInfowindow(marker, place);
 	            });
-	
-	            kakao.maps.event.addListener(marker, 'mouseout', function() {
+	   
+	            kakao.maps.event.addListener(marker, 'click', function() { 
 	                infowindow.close();
 	            });
 	
@@ -274,11 +314,43 @@ a{text-decoration:none; color:white;}
 	
 	// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 	// 인포윈도우에 장소명을 표시합니다
-	function displayInfowindow(marker, title) {
-	    var content = '<div style="padding:5px;z-index:1;">' + title +'</div>';  
-	    infowindow.setContent(content);
-	    infowindow.open(map, marker);
-	}
+	// 지도에 마커를 표시하는 함수입니다
+function displayMarker(place) {
+    
+    // 마커를 생성하고 지도에 표시합니다
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(place.y, place.x) 
+    });
+
+    // 마커에 클릭이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'click', function() {
+    	
+    	var content = '<div style="padding:5px;font-size:12px;">' + place.place_name +'</div>';
+    	content += '<input type="hidden" id="lat" value='+place.x+'>';
+    	content += '<input type="hidden" id="long" value='+place.y+'>';
+    	content += '<input type="hidden" id="name" value='+place.place_name+'>';
+
+        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+        
+      	
+        latitude=document.getElementById("lat").value;
+        longitude=document.getElementById("long").value;
+        placeName=document.getElementById("name").value;
+        
+        var message = '<form method="post"   action="${contextPath}/path/addPlace.do">';
+        message += '<input type="text" value='+latitude+'>';
+        message += '<input type="text" value='+longitude+'>';
+        message += '<input type="text" value='+placeName+'>';
+        message += '<input type="submit" value="저장">';
+        message += '</form>';
+       // message += '현재 위치: '+latitude+', '+longitude+', '+placeName;
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = message;
+    });
+}
 	
 	 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
 	function removeAllChildNods(el) {   
@@ -286,7 +358,6 @@ a{text-decoration:none; color:white;}
 	        el.removeChild (el.lastChild);
 	    }
 	}
-	 
 
 </script>
 </body>

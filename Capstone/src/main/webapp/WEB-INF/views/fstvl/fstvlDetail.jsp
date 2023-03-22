@@ -28,6 +28,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="${contextPath}/resources/css/fstvlDetail.css" />
+<script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	function add_bookmark(fstvl_id) {

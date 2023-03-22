@@ -3,6 +3,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.path">
 	<resultMap id="pathResult" type="pathVO">
+		<result property="regNO" column="regNO"/>
+		<result property="num" column="num"/>
 		<result property="member_id" column="member_id"/>
 		<result property="start_date" column="start_date"/>
 		<result property="end_date" column="end_date"/>
@@ -10,5 +12,50 @@
 		<result property="latitude" column="latitude"/>
 		<result property="longitude" column="longitude"/>
 		<result property="content" column="content"/>
+		<result property="placeName" column="placeName"/>
 	</resultMap>
+	
+	<select id="selectPathList" resultMap="pathResult" parameterType="pathVO">
+		<![CDATA[
+			select *
+			from t_plan
+			where member_id = #{member_id}
+			order by num
+		]]>
+	</select>
+	
+	<select id="selectDetailList" resultMap="pathResult" parameterType="pathVO">
+		<![CDATA[
+			select *
+			from t_plan
+			where member_id = #{member_id}
+			order by num
+		]]>
+	</select>
+	
+	<insert id="insertPath" parameterType="pathVO">
+		<![CDATA[
+			insert into t_plan(num, title, start_date, end_date, latitude, longitude, content, placeName, member_id)
+			values(#{num}, #{title}, #{start_date}, #{end_date}, #{latitude}, #{longitude}, #{content}, #{placeName}, #{member_id})
+		]]>
+	</insert>
+	
+	<insert id="insertPlace" parameterType="pathVO">
+		<![CDATA[
+			insert into t_plane(latitude, longitude, placeName, member_id)
+			values( #{latitude}, #{longitude}, #{placeName}, #{member_id})
+		]]>
+	</insert>
+	
+	<delete id="deletePath" parameterType="int">
+		<![CDATA[
+			delete from t_plan where regNO = #{regNO}
+		]]>
+	</delete> 
+	
+	<select id="selectMaxBookMarkId" resultType="int">
+		<![CDATA[
+			select nvl(max(regNO), 0) +1 from t_plan
+		]]>
+	</select>
 </mapper>

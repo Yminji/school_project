@@ -24,7 +24,7 @@ public class FstvlDAOImpl implements FstvlDAO{
 	
 	@Override
 	public List<String> selectKeywordSearch(String keyword) throws DataAccessException{
-		List<String> list = (ArrayList)sqlSession.selectList("mapper.fstvl.selecyKeywordSearch", keyword);
+		List<String> list = (ArrayList)sqlSession.selectList("mapper.fstvl.selectKeywordSearchs", keyword);
 		return list;
 	}
 

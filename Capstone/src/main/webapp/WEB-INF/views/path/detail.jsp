@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <% request.setCharacterEncoding("utf-8"); %>
+<c:set var="detailList" value="${pathMap.detailList}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/css/plan.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/path.css" />
 <link rel="stylesheet" href="${contextPath}/resources/css/detail.css" />
-
+<script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <style>
 a{text-decoration:none; color: white;}
@@ -40,8 +41,32 @@ a{text-decoration:none; color: white;}
 				  <li class="item mouse-effect stagger-item">
 		          <div class="num">1</div>
 		          <div class="infos">
-		            <div class="title">동선1</div>
-		            <div class="desc">동선제목1</div>
+		            <div class="title">카카오</div>
+		            <div class="desc">날짜</div>
+		          </div>
+		        </li> 
+			
+				  <li class="item mouse-effect stagger-item">
+		          <div class="num">2</div>
+		          <div class="infos">
+		            <div class="title">제주공항</div>
+		            <div class="desc">날짜</div>
+		          </div>
+		        </li> 
+			
+				  <li class="item mouse-effect stagger-item">
+		          <div class="num">3</div>
+		          <div class="infos">
+		            <div class="title">테마파크</div>
+		            <div class="desc">날짜</div>
+		          </div>
+		        </li> 
+			
+				  <li class="item mouse-effect stagger-item">
+		          <div class="num">4</div>
+		          <div class="infos">
+		            <div class="title">수목원</div>
+		            <div class="desc">날짜</div>
 		          </div>
 		        </li> 
 			</li>
@@ -67,7 +92,7 @@ a{text-decoration:none; color: white;}
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = {
         center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level : 7
+        level : 9
     // 지도의 확대 레벨
     };
  

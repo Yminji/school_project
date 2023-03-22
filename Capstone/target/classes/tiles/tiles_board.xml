@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/board/listBoard" extends="baseLayout">
+		<put-attribute name="title" value="게시판 목록"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/listBoard.jsp"/>
+	</definition>
+	
+	<definition name="/board/viewBoard" extends="baseLayout">
+		<put-attribute name="title" value="게시판 상세"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/viewBoard.jsp"/>
+	</definition>
+	
+	<definition name="/board/editBoard" extends="baseLayout">
+		<put-attribute name="title" value="게시판 수정"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/editBoard.jsp"/>
+	</definition>
+	
+	<definition name="/board/addBoard" extends="baseLayout">
+		<put-attribute name="title" value="게시판 추가"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/addBoard.jsp"/>
+	</definition>
+</tiles-definitions>

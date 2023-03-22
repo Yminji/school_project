@@ -18,9 +18,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${contextPath}/resources/css/fes_list.css" />
     <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
-    
+    <link rel="stylesheet" href="${contextPath}/resources/css/searchFstvl.css" />
 </head>
 <body>
+<br>
+<form name="frmSearch" class="green_window" action="${contextPath}/fstvl/searchFstvl.do">
+        <input name="searchWord" class="input_text" type = "text" onKeyUp="keywordSearch()" required>
+        <input type="submit" class="sch_smit" value="search">
+    </form>
 <c:forEach var="item" items="${listFstvl}" varStatus="cnt">
 <a href="${contextPath}/fstvl/fstvlDetail.do?fstvl_id=${item.fstvl_id}">
     <div class="card">

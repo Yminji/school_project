@@ -19,7 +19,7 @@ import com.myspring.capstone.fstvl.vo.ImageFileVO;
 public class BaseController {
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\festival\\file_repo";
 	
-	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
+	protected List upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImageFileVO> fileList = new ArrayList<ImageFileVO>();
 		Iterator<String> fileNames = multipartRequest.getFileNames(); //첨부된 파일 이름을 가져옴
 		while(fileNames.hasNext()) { 

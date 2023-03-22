@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace ="mapper.board">
+   	<resultMap id="boardRequest" type="boardVO">
+   		<result property="b_level" column="b_level"/>
+   		<result property="articleNO" column="articleNO"/>
+   		<result property="parentNO" column="parentNO"/>
+   		<result property="title" column="title"/>
+   		<result property="content" column="content"/>
+   		<result property="writeDate" column="writeDate"/>
+   		<result property="imageFileName" column="imageFileNam"/>
+   	</resultMap>
+   	
+   	<resultMap id="imgResult" type="imageVO">
+   		<result property="imageFileNO" column="imageFileNO"/>
+   		<result property="articleNO" column="articleNO"/>
+   		<result property="imageFileName" column="imageFileName"/>
+   	</resultMap>
+   	
+   	<select id="seletAllArticlesList" resultMap="boardRequest">
+   		<![CDATA[
+   			select b_level, articleNO, parentNO, title, content, writeDate, imageFileName, member_id
+   			from board
+   			START WITH parentNO = 0
+   			CONNECT BY PRIOR articleNO=parentNO
+   			ORDER SIBLINGS BY articleNO DESC
+   		]]>
+   	</select>
+   	
+   	<select id="selectNewArticleNO" resultType="int">
+   		<![CDATA[
+			SELECT  nvl(max(articleNO), 0) + 1 from board		
+		]]>
+   	</select>
+   	
+   	<select id="selectArticle" resultType="boardVO"   parameterType="int">
+    <![CDATA[
+      SELECT * from board
+      where articleNO = #{articleNO}		
+    ]]>
+  </select>
+   	
+   	<update id="updateArticle" parameterType="java.util.Map">
+   		update board set title=#{title}, content=#{content}
+   		<if test="imageFileName!='' and imageFileName != null">
+   			,imageFileName=#{imageFileName}
+   		</if>
+   		where articleNO=#{articleNO}
+   	</update>
+   	
+   	<delete id="deleteArticle" parameterType="int">
+   		<![CDATA[
+   			delete from board
+   			where articleNO in (
+   				select articleNO from board
+   				Start WITH articleNO = #{articleNO}
+   				Connect by PRIOR articleNO = parentNO)
+   		]]>
+   	</delete>
+   	
+   	<select id="selectNewImageFileNO" resultType="int">
+   		<![CDATA[
+   			select nvl(max(imageFileNO),0) from imageFile
+   		]]>
+   	</select>
+   	
+   	<select id="selectImageFileList" resultMap="imgResult" parameterType="int">
+   		<![CDATA[
+   			select * from imageFile
+   			where articleNO=#{articleNO}
+   		]]>
+   	</select>
+   </mapper> 

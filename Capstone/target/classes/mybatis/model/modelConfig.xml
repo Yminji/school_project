@@ -4,10 +4,12 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.myspring.capstone.bookmark.vo.BookMarkVO" alias="bookMarkVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.fstvl.vo.FstvlVO" alias="fstvlVO"></typeAlias>
+		<typeAlias type="com.myspring.capstone.bookmark.vo.BookMarkVO" alias="bookMarkVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.fstvl.vo.ImageFileVO" alias="imageFileVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.member.vo.MemberVO" alias="memberVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.path.vo.PathVO" alias="pathVO"/>
-	</typeAliases>
+		<typeAlias type="com.myspring.capstone.board.vo.BoardVO" alias="boardVO"/>
+		<typeAlias type="com.myspring.capstone.board.vo.ImageVO" alias="imageVO"/>
+	</typeAliases> 
 </configuration>

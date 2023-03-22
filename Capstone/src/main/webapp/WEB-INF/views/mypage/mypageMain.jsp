@@ -16,6 +16,7 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css"/>
+    <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
 <!-- <script>
 function ajaxJS(){
 $.ajax({

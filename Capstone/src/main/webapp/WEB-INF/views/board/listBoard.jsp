@@ -10,12 +10,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+ <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="${contextPath}/resources/css/style.css" />
+	<link rel="stylesheet" href="${contextPath}/resources/css/media.css" />
+	<script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>  
  <style>
    .cls1 {text-decoration:none;}
    .cls2{text-align:center; font-size:30px;}
   </style>
-  <meta charset="UTF-8">
-  <title>글목록창</title>
 </head>
 <script>
 	function fn_articleForm(isLogOn,articleForm,loginForm){
@@ -23,56 +31,93 @@
 	    location.href=articleForm;
 	  }else{
 	    alert("로그인 후 글쓰기가 가능합니다.")
-	    location.href=loginForm+'?action=/board/articleForm.do';
+	    location.href=loginForm+'?action=/board/addBoard.do';
 	  }
 	}
 </script>
 <body>
-<table align="center" border="1"  width="80%"  >
-  <tr height="10" align="center"  bgcolor="lightgreen">
-     <td >글번호</td>
-     <td >작성자</td>              
-     <td >제목</td>
-     <td >작성일</td>
-  </tr>
-<c:choose>
-  <c:when test="${articlesList ==null }" >
-    <tr  height="10">
-      <td colspan="4">
-         <p align="center">
-            <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
-        </p>
-      </td>  
-    </tr>
-  </c:when>
-  <c:when test="${articlesList !=null }" >
-    <c:forEach  var="article" items="${articlesList }" varStatus="articleNum" >
-     <tr align="center">
-	<td width="5%">${articleNum.count}</td>
-	<td width="10%">${article.id }</td>
-	<td align='left'  width="35%">
-	  <span style="padding-right:30px"></span>
-	   <c:choose>
-	      <c:when test='${article.level > 1 }'>  
-	         <c:forEach begin="1" end="${article.level }" step="1">
-	              <span style="padding-left:20px"></span>    
-	         </c:forEach>
-	         <span style="font-size:12px;">[답변]</span>
-                   <a class='cls1' href="${contextPath}/board/viewArticle.do?articleNO=${article.articleNO}">${article.title}</a>
-	          </c:when>
-	          <c:otherwise>
-	            <a class='cls1' href="${contextPath}/board/viewArticle.do?articleNO=${article.articleNO}">${article.title }</a>
-	          </c:otherwise>
-	        </c:choose>
-	  </td>
-	  <td  width="10%">${article.writeDate}</td> 
-	</tr>
-    </c:forEach>
-     </c:when>
-    </c:choose>
-</table>
-<!-- <a  class="cls1"  href="#"><p class="cls2">글쓰기</p></a> -->
-<a  class="cls1"  href="javascript:fn_articleForm('${isLogOn}','${contextPath}/board/articleForm.do', 
-                                                    '${contextPath}/member/loginForm.do')"><p class="cls2">글쓰기</p></a>
+ <div class="board_wrap">
+        <div class="board_title">
+            <strong>게시판</strong>
+            <p>여러분의 이야기를 나눠보세요^^</p>
+        </div>
+
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="num">번호</div>
+                    <div class="title">제목</div>
+                    <div class="writer">글쓴이</div>
+                    <div class="date">작성일</div>
+                    <div class="count">조회</div>
+                </div>
+                <c:choose>
+                	<c:when test="${boardList == null }">
+                		<div>
+					            <b><span style="font-size:9pt;">등록된 글이 없습니다.</span></b>
+					        </div>
+					  </c:when>
+					  <c:when test="${boardList != null }">
+                		<c:forEach var="article" items="${articlesList}" varStatus="articleNum">
+			                <div>
+			                    <div class="num">${articleNum.count}</div>
+			                    <div class="title"><a href="${contextPath}/board/viewBoard.do?articleNO=${article.articleNO}" style="color:black;">${article.title}</a></div>
+			                    <div class="writer">${article.member_id}</div>
+			                    <div class="date">${article.writeDate}</div>
+			                    <div class="count">33</div>
+			                </div>
+			             </c:forEach>
+			        </c:when>
+			    </c:choose>
+                <div>
+                    <div class="num">4</div>
+                    <div class="title"><a href="${contextPath}/board/viewBoard.do" style="color:black;"> 제목이들어감</a></div>
+                    <div class="writer">홍길동</div>
+                    <div class="date">2023.1.4</div>
+                    <div class="count">8</div>
+                </div>
+                <div>
+                    <div class="num">3</div>
+                    <div class="title"><a href="${contextPath}/board/viewBoard.do" style="color:black;"> 제목이들어감</a></div>
+                    <div class="writer">홍길동</div>
+                    <div class="date">2023.1.4</div>
+                    <div class="count">54</div>
+                </div>
+                <div>
+                    <div class="num">2</div>
+                    <div class="title"><a href="${contextPath}/board/viewBoard.do" style="color:black;"> 제목이들어감</a></div>
+                    <div class="writer">홍길동</div>
+                    <div class="date">2023.1.4</div>
+                    <div class="count">123</div>
+                </div>
+                <div>
+                    <div class="num">1</div>
+                    <div class="title"><a href="${contextPath}/board/viewBoard.do" style="color:black;"> 제목이들어감</a></div>
+                    <div class="writer">홍길동</div>
+                    <div class="date">2023.1.4</div>
+                    <div class="count">47</div>
+                </div>
+        
+            </div>
+            <div class="board_page">
+                <a href="#" class="bt first"><<</a>
+                <a href="#" class="bt prev"><</a>
+                <a href="#" class="num on">1</a>
+                <a href="#" class="num">2</a>
+                <a href="#" class="num">3</a>
+                <a href="#" class="num">4</a>
+                <a href="#" class="num">5</a>
+
+                <a href="#" class="bt next">></a>
+                <a href="#" class="bt last">>></a>
+
+            </div>
+            <div class="bt_wrap">
+                <a href="javascript:fn_articleForm('${isLogOn}','${contextPath}/board/addBoard.do', 
+                                                    '${contextPath}/member/loginForm.do')" class="on">등록</a>
+                <a href="${contextPath}/board/editBoard.do" class="on">수정</a>>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
