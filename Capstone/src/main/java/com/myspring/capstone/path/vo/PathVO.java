@@ -4,19 +4,16 @@ import org.springframework.stereotype.Repository;
 
 @Repository("pathVO")
 public class PathVO {
-	private int num;
+	private int numNO;
 	private String member_id;
 	private String start_date;
 	private String end_date;
 	private String title;
-	private String latitude;
-	private String longitude;
 	private String content;
-	private String placeName;
 	private int regNO;
 	
-	public void setNum(int num) {this.num = num;}
-	public int getNum() {return num;}
+	public void setNum(int numNO) {this.numNO = numNO;}
+	public int getNum() {return numNO;}
 	
 	public void setMember_id(String member_id) {this.member_id = member_id;}
 	public String getMember_id() {return member_id;}
@@ -30,17 +27,9 @@ public class PathVO {
 	public void setTitle(String title) {this.title = title;}
 	public String getTitle() {return title;}
 	
-	public void setLatitude(String latitude) {this.latitude = latitude;}
-	public String getLatitude() {return latitude;}
-	
-	public void setLongitude(String longitude) {this.longitude = longitude;}
-	public String getLongitude() {return longitude;}
 	
 	public void setContent(String content) {this.content = content;}
 	public String getContent() {return content;}
-	
-	public void setPlaceName(String placeName) {this.placeName = placeName;}
-	public String getPlaceName() {return placeName;}
 	
 	public void setRegNO(int regNO) {this.regNO = regNO;}
 	public int getRegNO() {return regNO;}

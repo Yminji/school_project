@@ -45,7 +45,7 @@
 	    formObj.method="post";
 	    formObj.action="${contextPath}/bookmark/removeBookMarkFstvl.do";
 	    formObj.submit();
-	}
+	}     
 	</script>
 </head>
 <body>

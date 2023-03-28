@@ -3,6 +3,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
@@ -21,19 +22,18 @@
 a{text-decoration:none; color:white;}
 </style>
 <script type="text/javascript">
-	function add_path() {
+	function add_path(latitude ,longitude, placeName) {
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
-			url : "${contextPath}/path/addPlace.do",
+			url : "${contextPath}/path/addPlan.do",
 			data : {
-				latitude = latitude,
-				longitude = longitude,
-				placeName : placeName
+				latitude:latitude,
+				longitude:longitude,
+				placeName:placeName
 			},
 			success : function(data, textStatus) {
-				alert(data+" 추가했습닏다.");
-				
+				alert("저장했습니다.");
 			},
 			error : function(data, textStatus) {
 				alert("에러가 발생했습니다."+data);
@@ -42,6 +42,21 @@ a{text-decoration:none; color:white;}
 				//alert("작업을완료 했습니다");
 			}
 		}); //end ajax	
+	}
+	
+	function delete_map(regNO){
+		var regNO=Number(regNO);
+		var formObj=document.createElement("form");
+		var i_cart = document.createElement("input");
+		i_cart.name="regNO";
+		i_cart.value=regNO;
+		
+		formObj.appendChild(i_cart);
+	    document.body.appendChild(formObj); 
+	    formObj.method="post";
+	    formObj.action="${contextPath}/path/removeMap.do";
+	    formObj.submit();
+	    
 	}
 </script>
 </head>
@@ -67,20 +82,22 @@ a{text-decoration:none; color:white;}
 		<div id="pagination"></div>
 		</div>
 	</div>
-	<div>${result}</div>
+	<div id="Context">
+  </div>
 	<ul class="list">
 	<c:choose>
-		<c:when test="${empty planList}">
+		<c:when test="${empty mapMap.mapList}">
 
 		</c:when>
 		<c:otherwise>
-			<c:forEach var="item" items="${planList}">
-     			<!-- <a href="${contextPath}/path/plan.do" style="color: black">  -->
+			<c:forEach var="item" items="${mapMap.mapList}" varStatus="cnt">
+     			<c:set var="regNO" value="${mapMap.mapList[cnt.count-1].regNO}" />
 		        <li class="item mouse-effect stagger-item">
-		          <div class="num">1</div>
+		          <div class="num">"${item.regNO}"</div>
 		          <div class="infos">
 		            <div class="title">동선1</div>
-		            <div class="desc">동선제목1</div>
+		            <div class="desc">"${item.placeName }"</div>
+		            <a href="javascript:delete_map('${regNO}');" style="color:black;">삭제하기</a>
 		          </div>
 		        </li>
 		      <!--</a>  -->
@@ -88,9 +105,9 @@ a{text-decoration:none; color:white;}
 		 </c:otherwise>
 	</c:choose>
    	</ul>
-   	<input type="hidden" id="placeName" name="placeName" value="">
-	<input type="hidden" id="latitude" name="latitude" value="">
-	<input type="hidden" id="longitude" name="longitude" value="">
+
+	
+	<h1>설명 : </h1><textarea name="content" rows="7" cols="195" maxlength="4000"></textarea>
 	<div id="result"></div>
 	<input type="submit" value="저장">
 	
@@ -209,7 +226,7 @@ a{text-decoration:none; color:white;}
 	            });
 	
 	            itemEl.onmouseover =  function () {
-	                displayInfowindow(marker, title);
+	                displayInfowindow(marker, place);
 	            };
 	
 	            itemEl.onmouseout =  function () {
@@ -325,11 +342,13 @@ function displayMarker(place) {
 
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, 'click', function() {
-    	
+
     	var content = '<div style="padding:5px;font-size:12px;">' + place.place_name +'</div>';
     	content += '<input type="hidden" id="lat" value='+place.x+'>';
     	content += '<input type="hidden" id="long" value='+place.y+'>';
     	content += '<input type="hidden" id="name" value='+place.place_name+'>';
+  
+    	content += '<input type="submit" id="저장" onClick=" add_path(latitude, longitude, placeName)">';
 
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infowindow.setContent(content);
@@ -339,16 +358,18 @@ function displayMarker(place) {
         latitude=document.getElementById("lat").value;
         longitude=document.getElementById("long").value;
         placeName=document.getElementById("name").value;
-        
-        var message = '<form method="post"   action="${contextPath}/path/addPlace.do">';
-        message += '<input type="text" value='+latitude+'>';
-        message += '<input type="text" value='+longitude+'>';
-        message += '<input type="text" value='+placeName+'>';
-        message += '<input type="submit" value="저장">';
-        message += '</form>';
+       // regNO = document.getElementById("regNO").value;
+       //	regNO +=1;
+       // var message = '<form method="post"   action="${contextPath}/path/addPlan.do">';
+       // message += '<input type="text" name="latitude" value='+latitude+'>';
+       // message += '<input type="text" name="longitude" value='+longitude+'>';
+       // message += '<input type="text" name="placeName" value='+placeName+'>';
+       // message += '<input type="submit" value="저장">';
+       // message += '</form>';
        // message += '현재 위치: '+latitude+', '+longitude+', '+placeName;
-        var resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = message;
+       //var message = '<a href="javascript:add_path('+latitude+','+ longitude+','+ placeName+')">'+'</a>';
+        //var resultDiv = document.getElementById('result');
+        //resultDiv.innerHTML = message;
     });
 }
 	
