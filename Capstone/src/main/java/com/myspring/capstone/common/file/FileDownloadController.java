@@ -14,25 +14,24 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class FileDownloadController {
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\festival\\file_repo";
-	
-	@RequestMapping("/download")
-	protected void download(@RequestParam("fileName") String fileName, @RequestParam("fstvl_id") String fstvl_id,
-			HttpServletResponse response ) throws Exception{
+	private static final String ARTICLE_IMAGE_REPO = "C:\\board\\article_image";
+	@RequestMapping("/download.do")
+	protected void download(@RequestParam("imageFileName") String imageFileName,
+							@RequestParam("articleNO") String articleNO,
+			                 HttpServletResponse response)throws Exception {
 		OutputStream out = response.getOutputStream();
-		String filePath = CURR_IMAGE_REPO_PATH+"\\"+fstvl_id+"\\"+fileName;
-		File image = new File(filePath);
-		
+		String downFile = ARTICLE_IMAGE_REPO + "\\" +articleNO+"\\"+ imageFileName;
+		File file = new File(downFile);
+
 		response.setHeader("Cache-Control", "no-cache");
-		response.setHeader("Content-diposition", "attachment; fileName="+fileName);
-		FileInputStream in = new FileInputStream(image);
-		byte[] buffer = new byte[1024 * 8]; //8KByte
-		while(true) {
-			int count = in.read(buffer); //버퍼에 읽어들인 문자 수
-			if(count== -1) { //버퍼의 마지막에 도달했으면
+		response.addHeader("Content-disposition", "attachment; fileName=" + imageFileName);
+		FileInputStream in = new FileInputStream(file);
+		byte[] buffer = new byte[1024 * 8];
+		while (true) {
+			int count = in.read(buffer); 
+			if (count == -1) 
 				break;
-			}
-			out.write(buffer, 0, count); //버퍼를 읽어 한번에 8kbtye씩 보냄
+			out.write(buffer, 0, count);
 		}
 		in.close();
 		out.close();
@@ -42,7 +41,7 @@ public class FileDownloadController {
 	protected void thumbnails(@RequestParam("fileName") String fileName, @RequestParam("fstvl_id") String fstvl_id,
 			HttpServletResponse response ) throws Exception{
 		OutputStream out = response.getOutputStream();
-		String filePath = CURR_IMAGE_REPO_PATH+"\\"+fstvl_id+"\\"+fileName;
+		String filePath = ARTICLE_IMAGE_REPO+"\\"+fstvl_id+"\\"+fileName;
 		File image = new File(filePath);
 		
 		if(image.exists()) {//파일이 존재한다면

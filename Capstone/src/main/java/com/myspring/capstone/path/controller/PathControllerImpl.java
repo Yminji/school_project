@@ -1,5 +1,7 @@
 package com.myspring.capstone.path.controller;
 
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myspring.capstone.common.base.BaseController;
@@ -71,15 +74,75 @@ public class PathControllerImpl extends BaseController{
 	
 	//위도, 경도, 이름 저장
 		@RequestMapping(value="/addPlan.do", method = RequestMethod.POST)
-		public ModelAndView addPlan(@ModelAttribute("map") MapVO map, HttpServletRequest request, HttpServletResponse response) throws Exception{
-			ModelAndView mav = new ModelAndView();
+		public ResponseEntity addPlan(@ModelAttribute("map") MapVO map, HttpServletRequest request, HttpServletResponse response) throws Exception{
+			int numNO = pathService.addNumNO();
 			HttpSession session = request.getSession();
 			memberVO = (MemberVO) session.getAttribute("memberInfo");
 			String member_id = memberVO.getMember_id();
 			map.setMember_id(member_id);
-			pathService.addPlan(map);
-			mav.setViewName("redirect:/path/plan.do");
-			return mav;
+			map.setNumNO(numNO);
+			String message = null;
+			ResponseEntity resEntity = null;
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+			try {
+				pathService.addPlan(map);
+				message  = "<script>";
+				message +=" alert('저장했습니다.');";
+				//message += " location.href='"+request.getContextPath()+"/path/plan.do';";
+				message += " </script>";
+				
+				}catch(Exception e) {
+				message  = "<script>";
+				message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+				message += " </script>";
+				e.printStackTrace();
+				}
+			
+			resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+			return resEntity;
+		}
+		
+	//동선 게시판 저장
+		@RequestMapping(value="/addNewPlan.do" ,method = RequestMethod.POST)
+		@ResponseBody
+		public ResponseEntity addNewPlan(HttpServletRequest multipartRequest, 
+		HttpServletResponse response) throws Exception {
+			multipartRequest.setCharacterEncoding("utf-8");
+			Map<String,Object> planMap = new HashMap<String, Object>();
+			Enumeration enu=multipartRequest.getParameterNames();
+			while(enu.hasMoreElements()){
+				String name=(String)enu.nextElement();
+				String value=multipartRequest.getParameter(name);
+				planMap.put(name,value);
+			}
+			
+			HttpSession session = multipartRequest.getSession();
+			MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+			String member_id = memberVO.getMember_id();
+			planMap.put("member_id", member_id);
+			
+			String message;
+			ResponseEntity resEnt=null;
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+			try {
+				int numNO = pathService.addNewArticle(planMap);
+				message = "<script>";
+				message += " alert('새글을 추가했습니다.');";
+				message += " location.href='"+multipartRequest.getContextPath()+"/path/path.do'; ";
+				message +=" </script>";
+			    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			}catch(Exception e) {
+				
+				message = " <script>";
+				message +=" alert('오류가 발생했습니다. 다시 시도해 주세요');  ";
+				message +=" location.href='"+multipartRequest.getContextPath()+"/path/path.do'; ";
+				message +=" </script>";
+				resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+				e.printStackTrace();
+			}
+			return resEnt;
 		}
 	
 	//동선 저장 페이지
@@ -123,12 +186,37 @@ public class PathControllerImpl extends BaseController{
 	}*/
 	
 	
-	//동선 삭제
+	/*동선 삭제
 	@RequestMapping(value="/removeMap.do", method=RequestMethod.POST)
 	public ModelAndView removeMap(@RequestParam("regNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		pathService.removeMap(regNO); 
-		mav.setViewName("redirect:/path/plan.do");
+		//mav.setViewName("redirect:/path/plan.do");
 		return mav;
+	}*/
+	
+	@RequestMapping(value="/removeMap.do", method=RequestMethod.POST)
+	public ResponseEntity removeMap(@RequestParam("regNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			pathService.removeMap(regNO); 
+			message  = "<script>";
+			message +=" alert('삭제했습니다.');";
+			//message += " location.href='"+request.getContextPath()+"/path/plan.do';";
+			message += " </script>";
+			
+			}catch(Exception e) {
+			message  = "<script>";
+			message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+			message += " </script>";
+			e.printStackTrace();
+			}
+		
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
 	}
 }

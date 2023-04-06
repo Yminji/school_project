@@ -4,6 +4,7 @@
 <mapper namespace="mapper.path">
 	<resultMap id="pathResult" type="pathVO">
 		<result property="numNO" column="numNO"/>
+		<result property="regNO" column="regNO"/>
 		<result property="member_id" column="member_id"/>  
 		<result property="start_date" column="start_date"/>
 		<result property="end_date" column="end_date"/>
@@ -22,7 +23,7 @@
 			select *
 			from t_plan
 			where member_id = #{member_id}
-			order by num
+			order by numNO
 		]]>
 	</select>
 	
@@ -40,7 +41,7 @@
 			select *
 			from t_plan
 			where member_id = #{member_id}
-			order by num
+			order by numNO
 		]]>
 	</select>
 	
@@ -51,12 +52,31 @@
 		]]>
 	</insert>
 	
-	<!-- <insert id="insertPlace" parameterType="pathVO">
+	<insert id="insertNewArticle"  parameterType="java.util.Map">
 		<![CDATA[
-			insert into t_plan(latitude, longitude, placeName)
-			values( #{latitude}, #{longitude}, #{placeName})
+			INSERT into t_plan(member_id, numNO, latitude, longitude, placeName, title, content)
+			values(#{member_id}, #{regNO}, #{latitude}, #{longitude}, #{placeName}, #{title}, #{content} )
+		]]>      
+	</insert>
+	
+	<select id="selectNewNumNO" resultType="int"  >
+		<![CDATA[
+			SELECT  nvl(max(numNO), 0) + 1 from t_plan		
 		]]>
-	</insert> -->
+	</select>
+	
+	<select id="insertNumNO" resultType="int"  >
+		<![CDATA[
+			SELECT  nvl(max(numNO), 0) + 1 from t_plan		
+		]]>
+	</select>
+	
+	<!-- <update id="updateArticle"  parameterType="java.util.Map">
+			update t_plan
+			set title=#{title},	 
+			content=#{content}
+			where numNO=#{numNO}
+	</update> -->
 	
 	<delete id="deletePath" parameterType="int">
 		<![CDATA[
@@ -73,6 +93,12 @@
 	<select id="selectMaxPlaceId" resultType="int">
 		<![CDATA[
 			select nvl(max(regNO), 0) +1 from map
+		]]>
+	</select>
+	
+	<select id="selectNewArticleNO" resultType="int"  >
+		<![CDATA[
+			SELECT  nvl(max(numNO), 0) + 1 from t_plan		
 		]]>
 	</select>
 </mapper>

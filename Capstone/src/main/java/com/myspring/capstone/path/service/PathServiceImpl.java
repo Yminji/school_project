@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.myspring.capstone.bookmark.vo.BookMarkVO;
-import com.myspring.capstone.fstvl.vo.FstvlVO;
 import com.myspring.capstone.path.dao.PathDAO;
 import com.myspring.capstone.path.vo.MapVO;
 import com.myspring.capstone.path.vo.PathVO;
@@ -40,13 +38,23 @@ public class PathServiceImpl implements PathService{
 	
 	public Map<String, List> mapList(MapVO mapVO) throws Exception{
 		Map<String, List> mapMap = new HashMap<String, List>();
-		List<MapVO> mapList = pathDAO.selectMapList(mapVO); //북마크 정보 조회
+		List<MapVO> mapList = pathDAO.selectMapList(mapVO); 
 		
 		if(mapList.size() == 0)
 			return null;
 
 		mapMap.put("mapList", mapList);
 		return mapMap;
+	}
+	
+	@Override
+	public int addNewArticle(Map articleMap) throws Exception{
+		return pathDAO.insertNewArticle(articleMap);
+	}
+	
+	@Override
+	public int addNumNO() throws Exception{
+		return pathDAO.insertNumNO();
 	}
 	
 	public void addPlan(MapVO mapVO) throws Exception{

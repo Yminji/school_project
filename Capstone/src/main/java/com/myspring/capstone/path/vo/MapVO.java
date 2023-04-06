@@ -9,6 +9,10 @@ public class MapVO {
 	private String longitude;
 	private String placeName;
 	private int regNO;
+	private int numNO;
+	
+	public void setNumNO(int numNO) {this.numNO = numNO;}
+	public int getNumNO() {return numNO;}
 	
 	public void setMember_id(String member_id) {this.member_id = member_id;}
 	public String getMember_id() {return member_id;}

@@ -71,6 +71,7 @@
 			  element.style.display = 'none';
 		   }
 		}
+		
 	</script>
 	<style type="text/css">
 	#suggest{
@@ -78,9 +79,11 @@
 	}
 	</style>
 </head>
+<div class="small-tomato">
 	<video muted autoplay loop id="bgvid">
-	    <source src="${contextPath}/resources/img/this.mp4" type="video/mp4" style="width:100%; height:100%">
+	    <source src="${contextPath}/resources/img/this.mp4" type="video/mp4" style="width:100%; height:auto;">
 	</video>
+	</div>
 <body>
 
 	<div class="container">

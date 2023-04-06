@@ -17,9 +17,19 @@
 <!-- <link rel="stylesheet" href="${contextPath}/resources/css/path.css" > --> 
 <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" ></script>
 <style>
 #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:22%;margin:10px 0 10px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.9);z-index: 1;font-size:12px;border-radius: 10px;}
 a{text-decoration:none; color:white;}
+.liii {
+		list-style: none;
+		border-width: 1px;
+		border-style: solid;
+		border-color: red;
+		padding : 10px;
+}
 </style>
 <script type="text/javascript">
 	function add_path(latitude ,longitude, placeName) {
@@ -33,84 +43,97 @@ a{text-decoration:none; color:white;}
 				placeName:placeName
 			},
 			success : function(data, textStatus) {
-				alert("저장했습니다.");
+				//$("#sortable").children().remove();
+				 //$("#sortable").html(data);
+				 $('#list').load(location.href+' #list');
 			},
 			error : function(data, textStatus) {
 				alert("에러가 발생했습니다."+data);
 			},
 			complete : function(data, textStatus) {
-				//alert("작업을완료 했습니다");
+				
 			}
-		}); //end ajax	
+		}); //end ajax	var regNO=Number(regNO);
 	}
 	
-	function delete_map(regNO){
-		var regNO=Number(regNO);
-		var formObj=document.createElement("form");
-		var i_cart = document.createElement("input");
-		i_cart.name="regNO";
-		i_cart.value=regNO;
-		
-		formObj.appendChild(i_cart);
-	    document.body.appendChild(formObj); 
-	    formObj.method="post";
-	    formObj.action="${contextPath}/path/removeMap.do";
-	    formObj.submit();
-	    
+	function delete_map(regNO) {
+		$.ajax({
+			type : "post",
+			async : false, //false인 경우 동기식으로 처리한다.
+			url : "${contextPath}/path/removeMap.do",
+			data : {
+				regNO : regNO
+			},
+			success : function(data, textStatus) {
+				//$("#sortable").children().remove();
+				 //$("#sortable").html(data);
+				 $('#list').load(location.href+' #list');
+			},
+			error : function(data, textStatus) {
+				alert("에러가 발생했습니다."+data);
+			},
+			complete : function(data, textStatus) {
+				
+			}
+		}); //end ajax	var regNO=Number(regNO);
 	}
+	
+	$(function(){
+		$( "#sortable" ).sortable();
+		$( "#sortable" ).disableSelection();
+	})
 </script>
 </head>
 <body>
 <br>
-
-	<div class="plan_title">
-	<h1>제목 : <input type="text" name="title"></h1>
-	</div>
-	<div class="map_wrap">
-	<div id="map" style="width:100%;height:100%;position:absolute;overflow:hidden;"></div>
-		<div id="menu_wrap" class="bg_white">
-			<div class="option">
-			    <div>
-				    <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="입력하세요" id="keyword" size="17"> 
-                    <button type="submit">검색하기</button> 
-                </form> 
+		<div class="map_wrap">
+		<div id="map" style="width:100%;height:100%;position:absolute;overflow:hidden;"></div>
+			<div id="menu_wrap" class="bg_white">
+				<div class="option">
+				    <div>
+					    <form onsubmit="searchPlaces(); return false;">
+	                    키워드 : <input type="text" value="입력하세요" id="keyword" size="17"> 
+	                    <button type="submit">검색하기</button> 
+	                </form> 
+				</div>
+			</div>
+			<hr>
+			<ul id="placesList"></ul>
+			<div id="pagination"></div>
 			</div>
 		</div>
-		<hr>
-		<ul id="placesList"></ul>
-		<div id="pagination"></div>
+		
+		<br>
+		<form name="articleForm" method="post"   action="${contextPath}/path/addNewPlan.do" >
+		<div class="plan_title">
+		<h1>제목 : <input type="text" name="title"></h1>
 		</div>
-	</div>
-	<div id="Context">
-  </div>
-	<ul class="list">
-	<c:choose>
-		<c:when test="${empty mapMap.mapList}">
-
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="item" items="${mapMap.mapList}" varStatus="cnt">
-     			<c:set var="regNO" value="${mapMap.mapList[cnt.count-1].regNO}" />
-		        <li class="item mouse-effect stagger-item">
-		          <div class="num">"${item.regNO}"</div>
-		          <div class="infos">
-		            <div class="title">동선1</div>
-		            <div class="desc">"${item.placeName }"</div>
-		            <a href="javascript:delete_map('${regNO}');" style="color:black;">삭제하기</a>
-		          </div>
-		        </li>
-		      <!--</a>  -->
-		     </c:forEach>
-		 </c:otherwise>
-	</c:choose>
-   	</ul>
-
+	  <div id="list">
+		<ul id="sortable">
+		<c:choose>
+			<c:when test="${empty mapMap.mapList}">
 	
-	<h1>설명 : </h1><textarea name="content" rows="7" cols="195" maxlength="4000"></textarea>
-	<div id="result"></div>
-	<input type="submit" value="저장">
-	
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="item" items="${mapMap.mapList}" varStatus="cnt">
+	     			 <!--<c:set var="regNO" value="${mapMap.mapList[cnt.count-1].regNO}" /> -->
+	     			
+				        <li class="liii">
+				          <div class="num">${cnt.count}</div>
+				            <div class="desc">${item.placeName }</div>
+				            <!-- <a href="javascript:delete_map('${regNO}');" style="color:black;">삭제하기</a> -->
+				            <input type="submit" id="삭제" value="삭제" onClick=" delete_map('${regNO}')">
+				        </li>
+			     </c:forEach>
+			 </c:otherwise>
+		</c:choose>
+	   	</ul>
+	 </div>
+		
+		<h1>설명 : </h1><textarea name="content" rows="7" cols="195" maxlength="4000"></textarea>
+		<div id="result"></div>
+		<input type="submit" value="저장">
+	</form> 
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b4687789a7700428ccb729bdaf4ac246&libraries=services"></script>
 	<script type="text/javascript">
 	//마커를 담을 배열입니다
@@ -358,18 +381,7 @@ function displayMarker(place) {
         latitude=document.getElementById("lat").value;
         longitude=document.getElementById("long").value;
         placeName=document.getElementById("name").value;
-       // regNO = document.getElementById("regNO").value;
-       //	regNO +=1;
-       // var message = '<form method="post"   action="${contextPath}/path/addPlan.do">';
-       // message += '<input type="text" name="latitude" value='+latitude+'>';
-       // message += '<input type="text" name="longitude" value='+longitude+'>';
-       // message += '<input type="text" name="placeName" value='+placeName+'>';
-       // message += '<input type="submit" value="저장">';
-       // message += '</form>';
-       // message += '현재 위치: '+latitude+', '+longitude+', '+placeName;
-       //var message = '<a href="javascript:add_path('+latitude+','+ longitude+','+ placeName+')">'+'</a>';
-        //var resultDiv = document.getElementById('result');
-        //resultDiv.innerHTML = message;
+       
     });
 }
 	

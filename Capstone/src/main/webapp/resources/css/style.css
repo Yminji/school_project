@@ -1,3 +1,4 @@
+
 .board_wrap{
     width : 1000px;
     margin : 100px auto;
@@ -43,6 +44,7 @@
 .bt_wrap a.on{
     background : orange;
     color : white;
+    border : 5px;
 }
 .board_list{
     width : 100%;
@@ -76,7 +78,9 @@
     width : 60%;
     text-align: left;
     text-decoration : none;
+    text-align: center;
 }
+#title11 a:hover { color: red; }
 .board_list .top .title{
     text-align: center;
     text-decoration : none;
@@ -86,7 +90,7 @@
     width : 10%;
 }
 .board_list .date {
-    width : 10%;
+    width : 20%;
 }
 .board_list .count {
     width : 10%;
@@ -98,8 +102,8 @@
 }
 .board_page a{
     display : inline-block;
-    width : 32px;
-    height : 32px;
+    width : auto;
+    height : auto;
     box-sizing: border-box;
     border : 3px solid white;
     border-left : 0;
@@ -213,7 +217,7 @@
 .board_write .info dd{
     display : inline-block;
     vertical-align : middle;
-    font-size : 25px;
+    font-size : 28px;
 }
 .board_write .title dt,
 .board_write .info dt{
@@ -245,3 +249,68 @@
     border : 0;
     resize : vertical;
 }
+.dd {
+	  width:15%;
+	  height:50px;
+	  background-color: orange;
+	  color: black;
+	  border-radius: 5px;
+	  font-size: 30px;
+	  margin : 100px 1px 1px 1px;
+     font-family: 'Gamja Flower', cursive;
+	}
+.dd:hover{background-color:#fff;}
+.dw {
+	  width:15%;
+	  height:50px;
+	  background-color: #fff;
+	  color: black;
+	  border-radius: 5px;
+	  font-size: 30px;
+	  margin : 100px 1px 1px 1px;
+     font-family: 'Gamja Flower', cursive;
+}
+.dw:hover{background-color:orange;}
+.titleq {
+	  width: 500px;
+	  height: 32px;
+	  font-size: 25px;
+	  border: 0;
+	  border-radius: 15px;
+	  outline: none;
+	  padding-left: 10px;
+	  background-color: rgb(233, 233, 233);
+	  font-family: 'Gamja Flower', cursive;
+}
+.introq {
+	  width: 150px;
+	  height: 32px;
+	  font-size: 25px;
+	  border: 0;
+	  border-radius: 15px;
+	  outline: none;
+	  padding-left: 10px;
+	  background-color: rgb(233, 233, 233);
+	  font-family: 'Gamja Flower', cursive;
+}
+.fixq {
+	  width: 150px;
+	  height: 32px;
+	  font-size: 25px;
+	  border: 0;
+	  border-radius: 15px;
+	  outline: none;
+	  padding-left: 10px;
+	  
+	  font-family: 'Gamja Flower', cursive;
+}
+.Atextarea {
+			width: 100%;
+			height: 200px;
+			padding: 10px;
+			box-sizing: border-box;
+			border: solid 2px rgb(233, 233, 233);
+			border-radius: 5px;
+			font-size: 20px;
+			resize: both;
+		}

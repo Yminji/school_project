@@ -9,7 +9,7 @@
 		<typeAlias type="com.myspring.capstone.fstvl.vo.ImageFileVO" alias="imageFileVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.member.vo.MemberVO" alias="memberVO"></typeAlias>
 		<typeAlias type="com.myspring.capstone.path.vo.PathVO" alias="pathVO"/>
-		<typeAlias type="com.myspring.capstone.board.vo.BoardVO" alias="boardVO"/>
+		<typeAlias type="com.myspring.capstone.board.vo.ArticleVO" alias="articleVO"/>
 		<typeAlias type="com.myspring.capstone.board.vo.ImageVO" alias="imageVO"/>
 		<typeAlias type="com.myspring.capstone.path.vo.MapVO" alias="mapVO"/>
 	</typeAliases> 

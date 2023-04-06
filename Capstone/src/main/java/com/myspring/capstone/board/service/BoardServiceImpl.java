@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.myspring.capstone.board.dao.BoardDAO;
-import com.myspring.capstone.board.vo.BoardVO;
-import com.myspring.capstone.board.vo.ImageVO;
+import com.myspring.capstone.board.vo.ArticleVO;
 
 @Service("boardService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -19,32 +18,47 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	BoardDAO boardDAO;
 	
-	@Override
-	public List<BoardVO> listBoard() throws Exception {
-		List<BoardVO> articlesList = boardDAO.selectAllArticlesList();
-		return articlesList;
+	public Map<String, Integer> listArticles(Map pagingMap) throws Exception{
+		Map articlesMap = new HashMap();
+		List<ArticleVO> articlesList =  boardDAO.selectAllArticlesList(pagingMap);
+		int totArticles = boardDAO.selectToArticles();
+		articlesMap.put("articlesList", articlesList);
+		articlesMap.put("totArticles", totArticles);
+        return articlesMap;
 	}
 
+	
+	//단일 이미지 추가하기
 	@Override
-	public int addNewArticle(Map articleMap) throws Exception {
+	public int addNewArticle(Map articleMap) throws Exception{
 		return boardDAO.insertNewArticle(articleMap);
 	}
-
+	
+	 //단일 파일 보이기
 	@Override
-	public BoardVO viewBoard(int articleNO) throws Exception {
-		BoardVO articleVO = boardDAO.selectArticle(articleNO);
+	public ArticleVO viewArticle(int articleNO) throws Exception {
+		ArticleVO articleVO = boardDAO.selectArticle(articleNO);
 		return articleVO;
 	}
-
+	
+	
 	@Override
-	public void modBoard(Map articleMap) throws Exception {
+	public void modArticle(Map articleMap) throws Exception {
 		boardDAO.updateArticle(articleMap);
 	}
-
+	
 	@Override
-	public void removeBoard(int articleNO) throws Exception {
+	public void removeArticle(int articleNO) throws Exception {
 		boardDAO.deleteArticle(articleNO);
 	}
 	
+	@Override
+	public int addReply(Map articleMap) throws Exception{
+		return boardDAO.insertNewParent(articleMap);
+	}
+	
+	public int addParentNO() throws Exception{
+		return boardDAO.selectNewParentNO();
+	}
 }
   

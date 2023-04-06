@@ -1,6 +1,7 @@
 package com.myspring.capstone.path.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -19,4 +20,8 @@ public interface PathDAO {
 	public List<PathVO> selectDetailList(PathVO pathVO) throws DataAccessException;
 	
 	public void deleteMap(int regNO) throws DataAccessException;
+	
+	public int insertNewArticle(Map articleMap) throws DataAccessException ;
+	
+	public int insertNumNO() throws DataAccessException;
 }

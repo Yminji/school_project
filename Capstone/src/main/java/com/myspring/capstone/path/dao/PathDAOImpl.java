@@ -1,13 +1,13 @@
 package com.myspring.capstone.path.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.myspring.capstone.bookmark.vo.BookMarkVO;
 import com.myspring.capstone.path.vo.MapVO;
 import com.myspring.capstone.path.vo.PathVO;
 
@@ -29,6 +29,22 @@ public class PathDAOImpl implements PathDAO{
 		int regNO = selectMaxPlaceId();
 		mapVO.setRegNO(regNO);
 		sqlSession.insert("mapper.path.insertPath", mapVO);
+	}
+	
+	@Override
+	public int insertNewArticle(Map articleMap) throws DataAccessException {
+		int numNO = selectNewArticleNO();
+		articleMap.put("numNO", numNO);
+		sqlSession.insert("mapper.path.insertNewArticle",articleMap);
+		return numNO;
+	}
+	
+	private int selectNewArticleNO() throws DataAccessException {
+		return sqlSession.selectOne("mapper.path.selectNewArticleNO");
+	}
+	
+	public int insertNumNO() throws DataAccessException{
+		return sqlSession.selectOne("mapper.path.insertNumNO ");
 	}
 	
 	public int selectMaxPlaceId() throws DataAccessException{

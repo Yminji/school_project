@@ -12,8 +12,8 @@ public class PathVO {
 	private String content;
 	private int regNO;
 	
-	public void setNum(int numNO) {this.numNO = numNO;}
-	public int getNum() {return numNO;}
+	public void setNumNO(int numNO) {this.numNO = numNO;}
+	public int getNumNO() {return numNO;}
 	
 	public void setMember_id(String member_id) {this.member_id = member_id;}
 	public String getMember_id() {return member_id;}

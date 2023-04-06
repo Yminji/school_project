@@ -3,23 +3,23 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-	<definition name="/board/listBoard" extends="baseLayout">
+	<definition name="/board/listArticles" extends="baseLayout">
 		<put-attribute name="title" value="게시판 목록"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/listBoard.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/listArticles.jsp"/>
 	</definition>
 	
-	<definition name="/board/viewBoard" extends="baseLayout">
+	<definition name="/board/viewArticle" extends="baseLayout">
 		<put-attribute name="title" value="게시판 상세"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/viewBoard.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/viewArticle.jsp"/>
 	</definition>
 	
-	<definition name="/board/editBoard" extends="baseLayout">
+	<definition name="/board/replyForm" extends="baseLayout">
 		<put-attribute name="title" value="게시판 수정"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/editBoard.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/replyForm.jsp"/>
 	</definition>
 	
-	<definition name="/board/addBoard" extends="baseLayout">
+	<definition name="/board/articleForm" extends="baseLayout">
 		<put-attribute name="title" value="게시판 추가"/>
-		<put-attribute name="body" value="/WEB-INF/views/board/addBoard.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/views/board/articleForm.jsp"/>
 	</definition>
 </tiles-definitions>

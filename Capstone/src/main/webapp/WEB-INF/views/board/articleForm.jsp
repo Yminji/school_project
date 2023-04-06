@@ -19,8 +19,10 @@
 	<link rel="stylesheet" href="${contextPath}/resources/css/media.css" />
 	<script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
 	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link rel="stylesheet" href="${contextPath}/resources/css/main.css">
 	<script type="text/javascript">
-	   function readURL(input) {
+	   
+	 function readURL(input) {
 	      if (input.files && input.files[0]) {
 		      var reader = new FileReader();
 		      reader.onload = function (e) {
@@ -30,7 +32,7 @@
 	      }
 	  }  
 	  function backToList(obj){
-	    obj.action="${contextPath}/board/listBoard.do";
+	    obj.action="${contextPath}/board/listArticles.do";
 	    obj.submit();
 	  }
 	  
@@ -40,38 +42,45 @@
 		  cnt++;
 	  }  
 	</script>
-</head>
-<body>
- <form name="addBoard" method="post"   action="${contextPath}/board/addBoard.do"   enctype="multipart/form-data">
-	<div class="board_wrtie_wrap">
-            <div class="board_write">
+	 <title>글쓰기창</title>
+	</head>
+	<body>
+	<div class="board_wrap">
+        <div class="board_title">
+            <strong>게시판</strong>
+            <p>여러분의 이야기를 나눠보세요^^</p>
+        </div>
+	  <form name="articleForm" method="post"   action="${contextPath}/board/addNewArticle.do"   enctype="multipart/form-data">
+	    <div class="board_wrtie_wrap">
+            <div class="board_view">
                 <div class="title">
                     <dl>
-                        <dt>제목</dt>
-                        <dd><input type="text" name="title" placeholder="제목 입력"></dd>
+                        <dt style="font-size: 30px;">제목</dt>
+                        <dd><input type="text" class="titleq" name="title" placeholder="제목 입력"/></dd>
                     </dl>
                 </div>
                 <div class="info">
                     <dl>
                       <dt>글쓴이</dt>
-                      <dd><input type="text" value="${member_id }"></dd>
-                    </dl>
-                    <dl>
-                        <dt>비밀번호</dt>
-                        <dd><input type="password" placeholder="비밀번호 입력"></dd>
+                      <dd><input type="text" class="introq"  value="${memberInfo.member_id }" readonly></dd>
                     </dl>
                 </div>
+                <br>
                 <div class="cont">
-                    <textarea name="content"  rows="10" cols="65" maxlength="4000" placeholder="내용 입력"></textarea>
+                    <textarea class="Atextarea" name="content" rows="10" cols="65" maxlength="4000"></textarea>
                 </div>
-        
+        		<div class="imageFile">
+        			<input type="file" name="imageFileName"  onchange="readURL(this);" />
+        			<img  id="preview" src="#"   width=200 height=200/>
+        		</div>
             </div>
           
             <div class="bt_wrap">
-                <input type="submit" value="글쓰기" />
-                <a href="${contextPath}/board/listBoard.do" class="on">취소</a>>
+                <input class="dd" type="submit" value="동록" />
+		       <input class="dw" type=button value="취소"onClick="location.href='${contextPath}/board/listArticles.do'" />
             </div>
         </div>
-</form>
-</body>
-</html>
+	  </form>
+	  </div>
+	</body>
+	</html>
