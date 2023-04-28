@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <c:set var="pathList" value="${pathMap.pathList}"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,18 +36,31 @@
     <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script>  
 	<script type="text/javascript">
-	function delete_path(regNO){
-		var regNO=Number(regNO);
-		var formObj=document.createElement("form");
-		var i_cart = document.createElement("input");
-		i_cart.name="regNO";
-		i_cart.value=regNO;
+	function fn_remove_article(url,articleNO){
+		 var form = document.createElement("form");
+		 form.setAttribute("method", "post");
+		 form.setAttribute("action", url);
+	     var articleNOInput = document.createElement("input");
+	     articleNOInput.setAttribute("type","hidden");
+	     articleNOInput.setAttribute("name","articleNO");
+	     articleNOInput.setAttribute("value", articleNO);
+		 
+	     form.appendChild(articleNOInput);
+	     document.body.appendChild(form);
+	     form.submit();
+	 
+	 }
+	
+	function openPlan(){
+		var popupWidth = 600;
+		var popupHeight = 500;
+
+		var popupX = Math.ceil(( window.screen.width - popupWidth )/2);
+		var popupY = Math.ceil(( window.screen.height - popupHeight )/2); 
+		window.name = "ParentForm";
 		
-		formObj.appendChild(i_cart);
-	    document.body.appendChild(formObj); 
-	    formObj.method="post";
-	    formObj.action="${contextPath}/path/removePath.do";
-	    formObj.submit();
+		openWin = window.open("${contextPath}/path/plan.do", "childForm", "width="+popupWidth+", height="+popupHeight+",left="+popupX+",top="+popupY+", resizabale=no, scrollbars=no, location=no");
+		
 	}
 	</script>
 </head>
@@ -58,64 +73,28 @@
     <br>
     <div class="featured">
       <div class="text-area">
-        <h1 class="title stagger-item">동선</h1>
+        <h1 class="title stagger-item" style="font-weight:bold;">여행 계획표</h1>
       </div> 
     </div>
 
     <ul class="list">
-    <input class="add_button" type="button" value="여행 동선 추가하기" onClick="location.href='${contextPath}/path/plan.do'">
-    	<c:choose>
-    		<c:when test="${empty pathList}">
-    			
-    			<!-- <li>저장된 동선이 없습니다.</li> -->
-    			<a href="${contextPath}/path/detail.do" style="color: black">
-		        <li class="item mouse-effect stagger-item">
-		          <div class="num">1</div>
-		          <div class="infos">
-		            <div class="title">제주도</div>
-		            <div class="desc">2022/03/11 ~ 2022/03/29</div>
-		          </div>
-		          <input type="submit" value="수정" onClick="location.href='${contextPath}/path/plan.do'" style="margin-left:70%">
-			      <input type="submit" value="삭제" onClick="javascript:delete_path('${item.regNO};')" style="margin-left:10px">
-		        </li>
-		      </a>
-    		</c:when>
-    		<c:otherwise>
-		        <li class="item mouse-effect stagger-item">
-		        	<c:forEach var="item" items="${pathList}" varStatus="cnt">
-		        		<c:set var="regNO" value="${pathList[cnt.count-1].regNO}"/>
-			          	<div class="num">${item.regNO}</div>
-			          	<div class="infos">
-			            	<a href="${contextPath}/path/detail.do?regNO=${item.regNO}" style="color: black">
-			            		<div class="title">${item.title}</div>
-			              	</a>	
-			            <div class="desc">2023-01-02 ~ 2023-01-14</div>
-			          	</div>
-			          	<input type="submit" value="수정" onClick="location.href='${contextPath}/path/plan.do?regNO=${item.regNO}'" style="margin-left:70%">
-			            <input type="submit" value="삭제" onClick="javascript:delete_path('${item.regNO};')" style="margin-left:10px">
-			         </c:forEach>
-			     </li>
-		      	
-		     <!--  <a href="${contextPath}/path/detail.do" style="color: black">
-		        <li class="item mouse-effect stagger-item">
-		          <div class="num">2</div>
-		          <div class="infos">
-		            <div class="title">동선2</div>
-		            <div class="desc">동선제목2</div>
-		          </div>
-		        </li>
-		      </a>
-		      <a href="${contextPath}/path/detail.do" style="color: black">
-		        <li class="item mouse-effect stagger-item">
-		          <div class="num">3</div>
-		          <div class="infos">
-		            <div class="title">동선3</div>
-		            <div class="desc">동선제목3</div>
-		          </div>
-		        </li>
-      </a>--> 
-      		</c:otherwise>
-      	</c:choose>
+    <!--  <input class="add_button" type="button" value="여행 동선 추가하기" onClick="location.href='${contextPath}/path/plan.do'">-->
+    <input class="add_button" type="button" value="여행 계획하기" onClick="openPlan()"> 
+     <br><br>
+		<c:forEach var="item" items="${articlesList}" varStatus="cnt">
+		   <li class="item mouse-effect stagger-item">
+		   <c:set var="articleNO" value="${articlesList[cnt.count-1].articleNO}"/>
+			  <div class="num">${cnt.count}</div>
+			  <div class="infos">
+			       <a href="${contextPath}/path/detail.do?articleNO=${item.articleNO}" style="color: black">
+			            <div class="title">${item.title}</div>
+			       </a>	
+			  <div class="desc">${item.s_date} ~ ${item.e_date }</div>
+			  </div>
+			  <input class="dd" type="submit" value="수정하기" onClick="location.href='${contextPath}/path/planMap.do?articleNO=${item.articleNO}'" style="margin-left:68%">
+			  <input class="dd" type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/path/removeArticle.do', ${item.articleNO})" style="margin-left:10px">
+			</li>
+		 </c:forEach>
     </ul>
 </body>
 </html>

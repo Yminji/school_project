@@ -39,6 +39,20 @@
 		]]>
 	</select>
 	
+	<select id="selectAllArticlesList" resultMap="fstvlResult" parameterType="String">
+		<![CDATA[
+		select * from (
+		select rownum as recNum, fstvlNm, fstvlCo, fstvlStartDate, fstvlEndDate, opar, fstvl_id  from fstvlInfo
+		)where recNum between(#{section}-1)*100+(#{pageNum}-1)*10+1 and (#{section}-1)*100+#{pageNum}*10
+		]]>
+	</select>
+	
+	<select id="selectToArticles" resultType="int">
+  		<![CDATA[
+  			select count(fstvlNm) from fstvlInfo
+  		]]>
+  	</select>
+	
 	<select id="selectFstvlList" resultMap="fstvlResult" parameterType="String">
 		<![CDATA[  
 			select* from fstvlInfo

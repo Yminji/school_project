@@ -52,9 +52,9 @@
 
 <div class="bodyrange">
 
-    <div class="text-area">
-      <h1 class="head-title">저장한 축제</h1>
-    </div>
+   
+      <h1 class="titleD">저장한 축제</h1>
+
     <hr style="border: solid 0.0625rem #f2f2f2; width: 50%" />
 	
     <!-- 축제카드 -->
@@ -73,7 +73,7 @@
 	    		 <c:set var="regNO" value="${mybookMarkList[cnt.count-1].regNO}" />
 	    		 <div class="col-12 col-md-6 col-lg-4" style="float:left;">
 		          <div class="card">
-		            <img src="${contextPath}/resources/img/fstvl/${item.fstvlNm}.png" class="card-img-top" alt="..." style="width:500px; height:500px"/>
+		            <img src="${contextPath}/resources/img/fstvl/${item.fstvlNm}.png" class="card-img-top" alt="..." style="width:470px; height:450px;"/>
 		            <div class="card-body"> 
 		            	<div id="text">
 		            		<h5 class="card-title">

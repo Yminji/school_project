@@ -1,9 +1,4 @@
-@charset "EUC-KR";
-body{
-    background: url(video.mp4) no-repeat
-    center center;
-    background-size: cover;
-}
+
 a{
     text-decoration: none;
     color: white;

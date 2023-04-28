@@ -3,92 +3,70 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.path">
 	<resultMap id="pathResult" type="pathVO">
-		<result property="numNO" column="numNO"/>
-		<result property="regNO" column="regNO"/>
+		<result property="articleNO" column="articleNO"/>
 		<result property="member_id" column="member_id"/>  
-		<result property="start_date" column="start_date"/>
-		<result property="end_date" column="end_date"/>
+		<result property="s_date" column="s_date"/>
+		<result property="e_date" column="e_date"/>
 		<result property="title" column="title"/>
-		<result property="content" column="content"/>
+		<result property="intro" column="intro"/>
+		<result property="w_date" column="w_date"/>
 	</resultMap>
 	<resultMap id="mapResult" type="mapVO">
 		<result property="latitude" column="latitude"/>
 		<result property="longitude" column="longitude"/>
 		<result property="placeName" column="placeName"/>
-		<result property="member_id" column="member_id"/>
+		<result property="intro" column="intro"/>
+		<result property="articleNO" column="articleNO"/>
 		<result property="regNO" column="regNO"/>
 	</resultMap>
-	<select id="selectPathList" resultMap="pathResult" parameterType="pathVO">
+	
+	
+	<select id="selectAllArticles" resultMap="pathResult">
 		<![CDATA[
-			select *
-			from t_plan
-			where member_id = #{member_id}
-			order by numNO
+			select * from t_plan where member_id = #{member_id}
 		]]>
 	</select>
 	
-	<select id="selectMapList" resultMap="mapResult" parameterType="mapVO">
+	<insert id="insertNewArticle" parameterType="java.util.Map">
 		<![CDATA[
-			select *
-			from map
-			where member_id = #{member_id}
-			order by regNO
-		]]>
-	</select>
-	
-	<select id="selectDetailList" resultMap="pathResult" parameterType="pathVO">
-		<![CDATA[
-			select *
-			from t_plan
-			where member_id = #{member_id}
-			order by numNO
-		]]>
-	</select>
-	
-	<insert id="insertPath" parameterType="mapVO">
-		<![CDATA[
-			insert into map(member_id, regNO, latitude, longitude, placeName)
-			values(#{member_id}, #{regNO}, #{latitude}, #{longitude}, #{placeName} )
+			insert into t_plan(articleNO, title, intro, member_id, s_date, e_date)
+			 values(#{articleNO}, #{title}, #{intro}, #{member_id}, #{s_date}, #{e_date})
 		]]>
 	</insert>
 	
-	<insert id="insertNewArticle"  parameterType="java.util.Map">
+	<insert id="insertNewMap" parameterType="java.util.Map">
 		<![CDATA[
-			INSERT into t_plan(member_id, numNO, latitude, longitude, placeName, title, content)
-			values(#{member_id}, #{regNO}, #{latitude}, #{longitude}, #{placeName}, #{title}, #{content} )
-		]]>      
+			insert int map(articleNO, regNO, latitude, longitude, placeName)
+			values(#{articleNO}, #{regNO}, #{latitude}, #{longitude}, #{placeName})
+		]]>
 	</insert>
 	
-	<select id="selectNewNumNO" resultType="int"  >
+	<select id="selectArticle" resultType="pathVO" parameterType="int">
 		<![CDATA[
-			SELECT  nvl(max(numNO), 0) + 1 from t_plan		
+			selct * from t_plan 
+			where articleNO = #{articleNO}
 		]]>
 	</select>
 	
-	<select id="insertNumNO" resultType="int"  >
+	<select id="selectMap" resultType="mapVO" parameterType="int">
 		<![CDATA[
-			SELECT  nvl(max(numNO), 0) + 1 from t_plan		
+			select * from map
+			where articleNO = #{articleNO}
 		]]>
 	</select>
 	
-	<!-- <update id="updateArticle"  parameterType="java.util.Map">
-			update t_plan
-			set title=#{title},	 
-			content=#{content}
-			where numNO=#{numNO}
-	</update> -->
-	
-	<delete id="deletePath" parameterType="int">
+		<select id="selectNewArticleNO" resultType="int"  >
 		<![CDATA[
-			delete from t_plan where regNO = #{regNO}
+			SELECT  nvl(max(articleNO), 0) + 1 from t_plan		
 		]]>
-	</delete> 
+	</select>
 	
-	<delete id="deleteMap" parameterType="int">
+		<insert id="insertPath" parameterType="mapVO">
 		<![CDATA[
-			delete from map where regNO = #{regNO}
+			insert into map(articleNO, regNO, latitude, longitude, placeName)
+			values(#{articleNO}, #{regNO}, #{latitude}, #{longitude}, #{placeName} )
 		]]>
-	</delete> 
+	</insert>
 	
 	<select id="selectMaxPlaceId" resultType="int">
 		<![CDATA[
@@ -96,9 +74,65 @@
 		]]>
 	</select>
 	
-	<select id="selectNewArticleNO" resultType="int"  >
+	<delete id="deleteArticle"  parameterType="int">
+    <![CDATA[
+      delete from t_plan
+       where  articleNO = #{articleNO}
+    ]]>     
+  </delete>
+  
+  <select id="selectMapList" resultMap="mapResult" parameterType="mapVO">
 		<![CDATA[
-			SELECT  nvl(max(numNO), 0) + 1 from t_plan		
+			select *
+			from map
+			where articleNO = #{articleNO}
+			
 		]]>
 	</select>
+	
+	<select id="selectArticleNO" resultType="int">
+		<![CDATA[
+			select articleNO from (
+			select articleNO from t_plan order by articleNO desc) 
+			where rownum = 1
+		]]>
+	</select>
+	<select id="selectNOone" resultType="int">
+		<![CDATA[
+			select articleNO from (
+			select * from t_plan order by articleNO desc)
+			where rownum = 1
+		]]>
+	</select>
+	
+	<select id="selectPlanDetail" resultMap = "pathResult" parameterType="int">
+		<![CDATA[
+			select title, intro, s_date, e_date from t_plan
+			where articleNO = #{articleNO}
+		]]>
+	</select>
+	
+	<update id="updatePath"  parameterType="java.util.Map">
+			update t_plan
+			set title=#{title},	 
+			intro=#{intro},
+			s_date=#{s_date},
+			e_date=#{e_date}
+			
+			where articleNO=#{articleNO}
+	</update>
+
+	<select id="selectMapDetail" resultMap="mapResult" parameterType="int">
+		<![CDATA[
+			select * from map
+			where articleNO = #{articleNO}	order by regNO	
+		]]>
+	</select>
+	
+	<delete id="deleteMap" parameterType="int">
+		<![CDATA[
+			delete from map where regNO = #{regNO}
+		]]>
+	</delete> 
+	
 </mapper>

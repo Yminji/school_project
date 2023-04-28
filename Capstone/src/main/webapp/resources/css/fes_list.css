@@ -177,99 +177,124 @@ h1 {
 	padding: 0px 15px 0px 15px;
 }
 
-.card-body {
-
-}
-
-
 
 .card-body-header{
-
 	line-height: 25px;
-
 	margin: 10px 20px 0px 20px;
-
 }
 
 
 
 .card-body-description, .card2-body-description {
-
     opacity: 0;
-
     color: #757B82;
-
     line-height: 25px;
-
     -webkit-transition: .2s ease-in-out; /*사파리&크롬*/
-
     -moz-transition: .2s ease-in-out; /*파이어폭스*/
-
     -ms-transition: .2s ease-in-out; /*익스플로러*/
-
     -o-transition: .2s ease-in-out; /*오페라*/
-
     transition : .2s ease-in-out;
-
     overflow: hidden;
-
 	height: 180px;
-
 	margin: 5px 20px;
-
 }
 
 
 .card:hover .card-body-description{
-
     opacity: 1;
-
     -webkit-transition: .5s ease-in-out;
-
     -moz-transition: .5s ease-in-out;
-
     -ms-transition: .5s ease-in-out;
-
     -o-transition: .5s ease-in-out;
-
     transition : .5s ease-in-out;
-    
 }
 
 
 .card-body-hashtag {
-
 	color: #2478FF;
-
 	font-style: italic;
-
 }
 
 
 
 .card-body-footer {
-
   	    position: absolute; 
-
   	    margin-top: 15px;
-
   	    margin-bottom: 6px;
-
     bottom: 0; 
-
     width: 314px;
-
     font-size: 14px;
-
     color: #9FA5A8;
-
     padding: 0 15px;
-
 }
 
 .reg_date {
-
 	float: right;
-
 }
 
+.page_wrap {
+	text-align:center;
+	font-size : 0;
+    font-family: 'Gamja Flower', cursive;
+
+ }
+.page_nation {
+	display:inline-block;
+}
+.page_nation .none {
+	display:none;
+}
+.page_nation a {
+	display:block;
+	margin:0 3px;
+	float:left;
+	border:1px solid #e6e6e6;
+	width:32px;
+	height:32px;
+	line-height:28px;
+	text-align:center;
+	background-color:#fff;
+	font-size:25px;
+	color:black;
+	text-decoration:none;
+}
+.page_nation .arrow {
+	border:1px solid #ccc;
+}
+
+.page_nation .pprev {
+	background:orange  no-repeat center center;
+	margin-left:0;
+}
+.page_nation .prev {
+	background:orange  no-repeat center center;
+	margin-right:7px;
+}
+.page_nation .next {
+	background:orange url(page_next.png) no-repeat center center;
+	margin-left:7px;
+}
+.page_nation .nnext {
+	background:orange url(page_nnext.png) no-repeat center center;
+	margin-right:0;
+}
+.page_nation a.active {
+	background-color:#42454c;
+	color:#fff;
+	border:1px solid #42454c;
+    font-size : 25px;
+}
+
+.fstvl_page{
+	margin-top: 40px;
+    text-align : center;
+    font-size: 30px;
+    font-weight:600;
+    color:black;
+}
+.num{
+	color:black;
+}
+.num:hover{
+	color:red;
+}

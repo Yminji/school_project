@@ -1,5 +1,6 @@
 package com.myspring.capstone.path.controller;
 
+import java.io.File;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,159 +44,176 @@ public class PathControllerImpl extends BaseController{
 	@Autowired
 	private MapVO mapVO;
 	
-	//동선 첫 페이지
-	@RequestMapping(value="/path.do", method=RequestMethod.GET)
-	public ModelAndView path(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");
+	@RequestMapping(value= "/path.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView path(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-		pathVO.setMember_id(member_id);
-		Map<String, List> pathMap = pathService.pathList(pathVO);
-		session.setAttribute("pathMap", pathMap);
-		return mav;
-	}
-	
-	//위도, 경도, 이름 저장
-	/*@RequestMapping(value="/addPlace.do", method = RequestMethod.POST, produces="application/text; charset=utf-8")
-	public @ResponseBody void addPlace(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude, @RequestParam("placeName") String placeName,
-			HttpServletRequest request, HttpServletResponse response) throws Exception{
-		HttpSession session = request.getSession();
-		memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-		
-		pathVO.setMember_id(member_id);
-		//pathVO.setLatitude(latitude);
-		//pathVO.setLongitude(longitude);
-		//pathVO.setPlaceName(placeName);
-		pathService.addPlace(pathVO);
-	}*/
-	
-	//위도, 경도, 이름 저장
-		@RequestMapping(value="/addPlan.do", method = RequestMethod.POST)
-		public ResponseEntity addPlan(@ModelAttribute("map") MapVO map, HttpServletRequest request, HttpServletResponse response) throws Exception{
-			int numNO = pathService.addNumNO();
-			HttpSession session = request.getSession();
-			memberVO = (MemberVO) session.getAttribute("memberInfo");
-			String member_id = memberVO.getMember_id();
-			map.setMember_id(member_id);
-			map.setNumNO(numNO);
-			String message = null;
-			ResponseEntity resEntity = null;
-			HttpHeaders responseHeaders = new HttpHeaders();
-			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-			try {
-				pathService.addPlan(map);
-				message  = "<script>";
-				message +=" alert('저장했습니다.');";
-				//message += " location.href='"+request.getContextPath()+"/path/plan.do';";
-				message += " </script>";
-				
-				}catch(Exception e) {
-				message  = "<script>";
-				message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
-				message += " </script>";
-				e.printStackTrace();
-				}
-			
-			resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-			return resEntity;
-		}
-		
-	//동선 게시판 저장
-		@RequestMapping(value="/addNewPlan.do" ,method = RequestMethod.POST)
-		@ResponseBody
-		public ResponseEntity addNewPlan(HttpServletRequest multipartRequest, 
-		HttpServletResponse response) throws Exception {
-			multipartRequest.setCharacterEncoding("utf-8");
-			Map<String,Object> planMap = new HashMap<String, Object>();
-			Enumeration enu=multipartRequest.getParameterNames();
-			while(enu.hasMoreElements()){
-				String name=(String)enu.nextElement();
-				String value=multipartRequest.getParameter(name);
-				planMap.put(name,value);
-			}
-			
-			HttpSession session = multipartRequest.getSession();
-			MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
-			String member_id = memberVO.getMember_id();
-			planMap.put("member_id", member_id);
-			
-			String message;
-			ResponseEntity resEnt=null;
-			HttpHeaders responseHeaders = new HttpHeaders();
-			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-			try {
-				int numNO = pathService.addNewArticle(planMap);
-				message = "<script>";
-				message += " alert('새글을 추가했습니다.');";
-				message += " location.href='"+multipartRequest.getContextPath()+"/path/path.do'; ";
-				message +=" </script>";
-			    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-			}catch(Exception e) {
-				
-				message = " <script>";
-				message +=" alert('오류가 발생했습니다. 다시 시도해 주세요');  ";
-				message +=" location.href='"+multipartRequest.getContextPath()+"/path/path.do'; ";
-				message +=" </script>";
-				resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-				e.printStackTrace();
-			}
-			return resEnt;
-		}
-	
-	//동선 저장 페이지
-	@RequestMapping(value="/detail.do", method=RequestMethod.GET)
-	public ModelAndView detail(HttpServletRequest request, HttpServletResponse response) throws Exception{ 
-		request.setCharacterEncoding("utf-8");
-		String viewName = (String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
-		String member_id = memberVO.getMember_id();
-		pathVO.setMember_id(member_id);
-		Map<String, List> detailMap = pathService.detailList(pathVO);
-		session.setAttribute("detailMap", detailMap);
-		return mav;
-	}
-	
-	//동선 수정 (추가)
-	@RequestMapping(value="/plan.do", method=RequestMethod.GET)
-	public ModelAndView plan(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");
-		String viewName = (String)request.getAttribute("viewName"); 
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession(); 
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberInfo"); //세션에서 회원정보를 가져옴
-		String member_id =   memberVO.getMember_id(); //회원 아이디를 가져옴
-		mapVO.setMember_id(member_id); //회원 아이디를 저장
-		//Map<String, List> pathList = pathVO.pathList(pathVO); //북마크 페이지에 표시할 정보를 가져옴
+		String member_id = memberVO.getMember_id();
+		pathVO.setMember_id(member_id);
+		List articlesList = pathService.listArticles(pathVO);
+		mav.addObject("articlesList", articlesList);
+		return mav;
+		
+	}
+	
+	@RequestMapping(value="/addNewArticle.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity addNewArticle(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("utf-8");
+		Map<String, Object> articleMap = new HashMap<String, Object>();
+		Enumeration enu = request.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name = (String)enu.nextElement();
+			String value = request.getParameter(name);
+			articleMap.put(name, value);
+		}
+		
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberInfo");
+		String member_id = memberVO.getMember_id();
+		articleMap.put("member_id", member_id);
+		
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			int articleNO = pathService.addNewArticle(articleMap);
+			message = "<script>";
+			message += "openWin = window.close();";
+			message += "opener.location.href='"+request.getContextPath()+"/path/planMap.do?articleNO="+articleNO+"';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}catch(Exception e) {
+			message = "<script>";
+			message += "alert('오류가 발생했습니다. 다시 시도해 주세요.');";
+			//message += "location.href='"+request.getContextPath()+"/path/path.do';";
+			message += "openWin = window.close();";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEnt;
+	}
+	
+	@RequestMapping(value="/addNewMap.do", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity addNewMap(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		  request.setCharacterEncoding("utf-8");
+		  Map<String, Object> articleMap = new HashMap<String, Object>();
+		  Enumeration enu = request.getParameterNames();
+		  while(enu.hasMoreElements()) {
+			  String name = (String)enu.nextElement();
+			  String value = request.getParameter(name);
+			  articleMap.put(name, value);
+		  }
+		  
+		  
+		  String articleNO=(String)articleMap.get("articleNO");
+		  articleMap.put("articleNO", articleNO);
+		  
+		  String message;
+		  ResponseEntity resEnt = null;
+		  HttpHeaders responseHeaders = new HttpHeaders();
+		  responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		  try {
+			  pathService.addNewMap(articleMap);
+			  message = "<script>";
+			  message += "alert('저장되었습니다.');";
+			  message += "location.href='"+request.getContextPath()+"/path/path.do";
+			  resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		  }catch(Exception e) {
+			  message = "<script>";
+			  message += "alert('오류가 발생했습니다. 다시 시도해주세요.');";
+			  message += "location.href='"+request.getContextPath()+"/path/path.do";
+			  resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			  e.printStackTrace();
+		  }
+		  return resEnt;
+	}
+	
+	@RequestMapping(value="/addPlan.do", method = RequestMethod.POST)
+	public ResponseEntity addPlan(@RequestParam("articleNO") int articleNO, @ModelAttribute("map") MapVO map,  HttpServletRequest request, HttpServletResponse response) throws Exception{
+		map.setArticleNO(articleNO);
+		String message = null;
+		ResponseEntity resEntity = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			pathService.addPlan(map);
+			message  = "<script>";
+			message +=" alert('저장했습니다.');";
+			//message += " location.href='"+request.getContextPath()+"/path/plan.do';";
+			message += " </script>";
+			
+			}catch(Exception e) {
+			message  = "<script>";
+			message +=" alert('작업 중 오류가 발생했습니다. 다시 시도해 주세요');";
+			message += " </script>";
+			e.printStackTrace();
+			}
+		
+		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
+		return resEntity;
+	}
+	
+	//동선 수정 (추가)
+	@RequestMapping(value="/planMap.do", method=RequestMethod.GET)
+	public ModelAndView plan(@RequestParam("articleNO") int articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("utf-8");
+		String viewName = (String)request.getAttribute("viewName"); 
+		ModelAndView mav = new ModelAndView(viewName);
+		mapVO.setArticleNO(articleNO);
 		Map<String, List> mapMap = pathService.mapList(mapVO);
-		session.setAttribute("mapMap", mapMap); //북마크 목록을 세션에 저장
+		Map planMap = pathService.pathDetail(articleNO);
+		mav.addObject("mapMap", mapMap); 
+		mav.addObject("articleNO", articleNO); 
+		mav.addObject("planMap", planMap);
 		return mav;
 	}
 	
-	
-	/*@RequestMapping(value="/addPath.do", method=RequestMethod.POST, produces="application/text; charset=utf-8")
-	public ModelAndView plan(@RequestParam("regNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	@RequestMapping(value="/detail.do", method=RequestMethod.GET)
+	public ModelAndView detail(@RequestParam("articleNO") int articleNO, 
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		//System.out.println("plan");
+		Map planMap = pathService.pathDetail(articleNO);
+		mav.addObject("planMap", planMap);
+		mav.addObject("articleNO", articleNO);
 		return mav;
-	}*/
+	}
 	
-	
-	/*동선 삭제
-	@RequestMapping(value="/removeMap.do", method=RequestMethod.POST)
-	public ModelAndView removeMap(@RequestParam("regNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		pathService.removeMap(regNO); 
-		//mav.setViewName("redirect:/path/plan.do");
-		return mav;
-	}*/
-	
+	@RequestMapping(value="/removeArticle.do" ,method = RequestMethod.POST)
+	  @ResponseBody
+	  public ResponseEntity  removeArticle(@RequestParam("articleNO") int articleNO,
+	                              HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html; charset=UTF-8");
+		String message;
+		ResponseEntity resEnt=null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			pathService.removeArticle(articleNO);
+			
+			
+			message = "<script>";
+			//message += " alert('저장된 동선을 삭제했습니다.');";
+			message += " location.href='"+request.getContextPath()+"/path/path.do';";
+			message +=" </script>";
+		    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		       
+		}catch(Exception e) {
+			message = "<script>";
+			message += " alert('작업중 오류가 발생했습니다.다시 시도해 주세요.');";
+			message += " location.href='"+request.getContextPath()+"/path/path.do';";
+			message +=" </script>";
+		    resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		    e.printStackTrace();
+		}
+		return resEnt;
+	  }  
 	@RequestMapping(value="/removeMap.do", method=RequestMethod.POST)
 	public ResponseEntity removeMap(@RequestParam("regNO") int regNO, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
@@ -219,4 +238,38 @@ public class PathControllerImpl extends BaseController{
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
+	 
+	@RequestMapping(value="/modPath.do", method=RequestMethod.POST)
+	public ResponseEntity modPath(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		request.setCharacterEncoding("utf-8");
+		Map<String, Object> pathMap = new HashMap<String, Object>();
+		Enumeration enu = request.getParameterNames();
+		while(enu.hasMoreElements()) {
+			String name = (String)enu.nextElement();
+			String value = request.getParameter(name);
+			pathMap.put(name, value);
+		}
+		
+		String articleNO = (String)pathMap.get("articleNO");
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			pathService.modPath(pathMap);
+			message = "<script>";
+			message += " alert('글을 수정했습니다.');";
+			message += " location.href='"+request.getContextPath()+"/path/detail.do?articleNO="+articleNO+"';";
+			message +=" </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}catch(Exception e) {
+			message = "<script>";
+			message += " alert('글을 수정했습니다.');";
+			message += " location.href='"+request.getContextPath()+"/path/detail.do?articleNO="+articleNO+"';";
+			message +=" </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}
+		return resEnt;
+	}
+	
 }

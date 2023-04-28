@@ -13,4 +13,6 @@ public interface FstvlService {
 	public List<String> keywordSearch(String keyword) throws Exception;
 	
 	public List<FstvlVO> fstvlList(FstvlVO fstvlVO) throws Exception;
+	
+	public Map<String, Integer> listFstvl(Map pagingMap) throws Exception;
 }

@@ -8,12 +8,10 @@
 <head>
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
+<script  src="${contextPath}/resources/js/main.js" defer></script>
 	   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-    
-</head>
-<body>
-	<script type="text/javascript">
+    <!-- <script>
 	    const toggleBtn = document.querySelector(".navbar__toogleBtn");
 		const menu = document.querySelector(".navbar__menu");
 	
@@ -21,7 +19,10 @@
 		    menu.classList.toggle('active');
 		    
 		});
-    </script>
+    </script> -->
+</head>
+<body>
+	
 	<nav class="navbar">
     <div class="navbar__logo">
         <i class="fa-solid fa-face-smile"></i>
@@ -31,16 +32,16 @@
     <ul class="navbar__menu">
     	<c:choose>
     		<c:when test="${isLogOn == true and not empty memberInfo }">
-    			<li><a href="${contextPath}/fstvl/fstvlList.do">축제</a>
-    			<li><a href="${contextPath}/board/listArticles.do">게시판</a></li>
-		        <li><a href="${contextPath}/mypage/mypageMain.do">마이페이지</a></li>
-		        <li><a href="${contextPath}/member/logout.do">로그아웃</a></li>
+    			<li><a class="rr" href="${contextPath}/fstvl/fstvlList.do">축제</a>
+    			<li><a class="rr" href="${contextPath}/board/listArticles.do">게시판</a></li>
+		        <li><a class="rr" href="${contextPath}/mypage/mypageMain.do">마이페이지</a></li>
+		        <li><a class="rr" href="${contextPath}/member/logout.do">로그아웃</a></li>
 		    </c:when>
 		    <c:otherwise>
-		    	<li><a href="${contextPath}/fstvl/fstvlList.do">축제</a>
-		    	<li><a href="${contextPath}/board/listArticles.do">게시판</a></li>
-		    	<li><a href="${contextPath}/member/loginForm.do">로그인</a></li>
-		        <li><a href="${contextPath}/member/memberForm.do">회원가입</a></li>
+		    	<li><a class="rr" href="${contextPath}/fstvl/fstvlList.do">축제</a>
+		    	<li><a class="rr" href="${contextPath}/board/listArticles.do">게시판</a></li>
+		    	<li><a class="rr" href="${contextPath}/member/loginForm.do">로그인</a></li>
+		        <li><a class="rr" href="${contextPath}/member/memberForm.do">회원가입</a></li>
 		        
 		    </c:otherwise>
 	    </c:choose>
@@ -51,7 +52,7 @@
         <i class="fa-solid fa-bars"></i>
 
     </a>
-
+    
  </nav>
 </body>
 </html>

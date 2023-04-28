@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.myspring.capstone.board.vo.ArticleVO;
 import com.myspring.capstone.fstvl.dao.FstvlDAO;
 import com.myspring.capstone.fstvl.vo.FstvlVO;
 
@@ -38,5 +39,14 @@ public class FstvlServiceImpl implements FstvlService{
 	public List<FstvlVO> fstvlList(FstvlVO fstvlVO) throws Exception{
 		List fstvlList = fstvlDAO.selectFstvlList(fstvlVO);
 		return fstvlList;
+	}
+	
+	public Map<String, Integer> listFstvl(Map pagingMap) throws Exception{
+		Map articlesMap = new HashMap();
+		List<ArticleVO> articlesList =  fstvlDAO.selectAllArticlesList(pagingMap);
+		int totArticles = fstvlDAO.selectToArticles();
+		articlesMap.put("articlesList", articlesList);
+		articlesMap.put("totArticles", totArticles);
+        return articlesMap;
 	}
 }

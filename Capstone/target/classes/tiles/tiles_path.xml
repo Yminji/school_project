@@ -3,6 +3,13 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
+<definition name="popup"
+		template = "/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="title" value="레인아웃 페이지"/>
+		<put-attribute name="header" value=""/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value=""/>
+	</definition>
 	<definition name="/path/path" extends="baseLayout">
 		<put-attribute name="title" value="지도"/>
 		<put-attribute name="body" value="/WEB-INF/views/path/path.jsp"/>
@@ -12,8 +19,12 @@
 		<put-attribute name="title" value="지도"/>
 		<put-attribute name="body" value="/WEB-INF/views/path/detail.jsp"/>
 	</definition>
-	<definition name="/path/plan" extends="baseLayout">
+	<definition name="/path/plan" extends="popup">
 		<put-attribute name="title" value="계획"/>
 		<put-attribute name="body" value="/WEB-INF/views/path/plan.jsp"/>
+	</definition>
+	<definition name="/path/planMap" extends="baseLayout">
+		<put-attribute name="title" value="동선계획"/>
+		<put-attribute name="body" value="/WEB-INF/views/path/planMap.jsp"/>
 	</definition>
 </tiles-definitions>

@@ -71,7 +71,13 @@
 			  element.style.display = 'none';
 		   }
 		}
-		
+		const toggleBtn = document.querySelector(".navbar__toogleBtn");
+		const menu = document.querySelector(".navbar__menu");
+	
+		toggleBtn.addEventListener('click', () => {
+		    menu.classList.toggle('active');
+		    
+		});
 	</script>
 	<style type="text/css">
 	#suggest{
@@ -80,11 +86,11 @@
 	</style>
 </head>
 <div class="small-tomato">
-	<video muted autoplay loop id="bgvid">
-	    <source src="${contextPath}/resources/img/this.mp4" type="video/mp4" style="width:100%; height:auto;">
-	</video>
-	</div>
+		</div>
 <body>
+<video muted autoplay loop id="bgvid">
+	    <source src="${contextPath}/resources/img/video5.mp4" type="video/mp4" style="width:100%; height:auto;">
+	</video>
 
 	<div class="container">
 	
@@ -109,7 +115,7 @@
 		}, 3000)
     </script>
     
-    <nav>
+    <!-- <nav>
     <div class="slide_box">
         <div class="slider">
             <div class="slides">
@@ -132,9 +138,9 @@
                 
                 <div class="slide">      
                     <img src="${contextPath}/resources/img/a4.jpg" alt="">
-                </div>
+                </div> -->
   <!--<img src="${contextPath}/resources/img/fstvl/${item.fstvlNm}.png" alt="">  -->
-                <div class="navigation-auto">
+               <!--  <div class="navigation-auto">
                     <div class="auto-btn1"></div>
                     <div class="auto-btn2"></div>
                     <div class="auto-btn3"></div>
@@ -150,6 +156,6 @@
             </div>
         </div>
     </div>
- </nav>    
+ </nav>    --> 
 </body>
 </html>

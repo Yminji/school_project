@@ -19,22 +19,34 @@ public class PathServiceImpl implements PathService{
 	@Autowired
 	private PathDAO pathDAO;
 	
-	@Override
-	public Map<String, List> pathList(PathVO pathVO) throws Exception{
-		Map<String, List> pathMap = new HashMap<String, List>();
-		List<PathVO> pathList = pathDAO.selectPathList(pathVO);
-		
-		if(pathList.size() == 0)
-			return null;
-		
-		pathMap.put("pathList", pathList);
-		return pathMap;
+	public List<PathVO> listArticles(PathVO pathVO) throws Exception{
+		List<PathVO> articlesList =  pathDAO.selectAllArticlesList(pathVO);
+        return articlesList;
+	}
+
+	public int addNewArticle(Map articleMap) throws Exception{
+		return pathDAO.insertNewArticle(articleMap);
 	}
 	
-	/*@Override
-	public void addPlace(PathVO pathVO) throws Exception{
-		pathDAO.insertPlace(pathVO);
-	}*/
+	public void addNewMap(Map articleMap) throws Exception{
+		pathDAO.insertNewMap(articleMap);
+	}
+	
+	public Map viewArticle(int articleNO) throws Exception{
+		Map articleMap = new HashMap();
+		PathVO pathVO = pathDAO.selectArticle(articleNO);
+		MapVO mapVO = pathDAO.selectMap(articleNO);
+		articleMap.put("pathVO", pathVO);
+		articleMap.put("mapVO", mapVO);
+		return articleMap;
+	}
+	public void addPlan(MapVO mapVO) throws Exception{
+		pathDAO.insertPath(mapVO);
+	}
+	
+	public void  removeArticle(int articleNO) throws Exception{
+		pathDAO.deleteArticle(articleNO);
+	}
 	
 	public Map<String, List> mapList(MapVO mapVO) throws Exception{
 		Map<String, List> mapMap = new HashMap<String, List>();
@@ -46,30 +58,27 @@ public class PathServiceImpl implements PathService{
 		mapMap.put("mapList", mapList);
 		return mapMap;
 	}
-	
-	@Override
-	public int addNewArticle(Map articleMap) throws Exception{
-		return pathDAO.insertNewArticle(articleMap);
-	}
-	
-	@Override
-	public int addNumNO() throws Exception{
-		return pathDAO.insertNumNO();
-	}
-	
-	public void addPlan(MapVO mapVO) throws Exception{
-		pathDAO.insertPath(mapVO);
-	}
-	
-	@Override
-	public Map<String, List> detailList(PathVO pathVO) throws Exception{
-		Map<String, List> detailMap = new HashMap<String, List>();
-		List<PathVO> detailList = pathDAO.selectDetailList(pathVO);
-		detailMap.put("detailList", detailList);
-		return detailMap;
+
+	public int addArticleNO() throws Exception{
+		return pathDAO.selectArticleNO();
 	}
 	
 	public void removeMap(int regNO) throws Exception{
 		pathDAO.deleteMap(regNO);
 	}
+	
+	@Override
+	public Map<String, List> pathDetail(int articleNO) throws Exception{
+		Map planMap = new HashMap();
+		PathVO pathVO = pathDAO.selectPlanDetail(articleNO);
+		List<MapVO> mapVO = pathDAO.selectMapDetail(articleNO);
+		planMap.put("mapVO", mapVO);
+		planMap.put("pathVO", pathVO);
+		return planMap;
+	}
+	
+	public void modPath(Map pathMap) throws Exception{
+		
+	}
+	
 }

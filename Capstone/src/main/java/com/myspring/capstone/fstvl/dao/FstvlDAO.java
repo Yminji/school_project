@@ -1,6 +1,7 @@
 package com.myspring.capstone.fstvl.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -15,4 +16,8 @@ public interface FstvlDAO {
 	public List<String> selectFstvlBySearchWord(String searchWord) throws DataAccessException;
 
 	List<FstvlVO> selectFstvlList(FstvlVO fstvlVO) throws DataAccessException;
+	
+	public List selectAllArticlesList(Map<String, Integer> pagingMap) throws DataAccessException;
+	
+	public int selectToArticles() throws DataAccessException;
 }

@@ -1,5 +1,6 @@
 package com.myspring.capstone.fstvl.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +34,25 @@ public class FstvlControllerImpl extends BaseController implements FstvlControll
 	
 	@RequestMapping(value="/fstvlList.do", method=RequestMethod.GET)
 	public ModelAndView fstvlList(HttpServletRequest request, HttpServletResponse respons) throws Exception{
-		request.setCharacterEncoding("utf-8");
+		/*request.setCharacterEncoding("utf-8");
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		List<FstvlVO> listFstvl = fstvlService.fstvlList(fstvlVO);
 		mav.addObject("listFstvl", listFstvl);
+		return mav;*/
+		String viewName = (String)request.getAttribute("viewName");
+		String _section = request.getParameter("section");
+		String _pageNum = request.getParameter("pageNum");
+		int section = Integer.parseInt((_section == null) ? "1" : _section);
+		int pageNum = Integer.parseInt((_pageNum == null) ? "1" : _pageNum);
+		Map<String, Integer> pagingMap = new HashMap<String, Integer>();
+		pagingMap.put("section", section);
+		pagingMap.put("pageNum", pageNum);
+		Map fstvlMap = fstvlService.listFstvl(pagingMap);
+		fstvlMap.put("section", section);
+		fstvlMap.put("pageNum", pageNum);
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.addObject("fstvlMap", fstvlMap);
 		return mav;
 	}
 	
@@ -46,7 +61,6 @@ public class FstvlControllerImpl extends BaseController implements FstvlControll
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		String viewName = (String)request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session = request.getSession();
 		Map fstvlMap = fstvlService.fstvlDetail(fstvl_id);
 		mav.addObject("fstvlMap", fstvlMap);
 		FstvlVO fstvlVO = (FstvlVO)fstvlMap.get("fstvlVO");

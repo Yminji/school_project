@@ -28,3 +28,9 @@ a{text-decoration:none;}
 h1.head-title {
   padding-bottom: 75px;
 }
+.titleD{
+  margin-bottom: 12px;
+  text-align: center;
+  font-family: 'Nanum Pen Script', fantasy;
+  font-size:65px;
+}
