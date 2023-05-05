@@ -17,27 +17,21 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="${contextPath}/resources/css/animation.css"/>
     <script src="https://kit.fontawesome.com/3b62b241c8.js" crossorigin="anonymous"></script>
-<!-- <script>
-function ajaxJS(){
-$.ajax({
-    type:"post",  
-    async:false,  
-    url:"${contextPath}/mypage/mypageMain.do",
-    dataType:test,
-    data: {memberVO:_memberVO},
-    success:function (data,textStatus){
-      	alert("로그인 성공");
-    },
-    error:function(data,textStatus){
-       alert("에러가 발생했습니다.");ㅣ
-    },
-    complete:function(data,textStatus){
-       //alert("작업을완료 했습니다");
-    }
- });  //end ajax	 
-}
-</script>-->
-
+	<script type="text/javascript">
+	function deleteMemberId(member_id){
+		var id=String(member_id);
+		var formObj=document.createElement("form");
+		var i_id = document.createElement("input");
+		i_id.name="id";
+		i_id.value=id;
+		
+		formObj.appendChild(i_id);
+	    document.body.appendChild(formObj); 
+	    formObj.method="post";
+	    formObj.action="${contextPath}/member/removeMember.do";
+	    formObj.submit();
+	}     
+	</script>
 </head>
 <body>
 	
@@ -53,9 +47,6 @@ $.ajax({
        
       </div>
 	<button onClick="location.href='${contextPath}/member/logout.do'">로그아웃</button>
-    <!--  <div class="mail mouse-effect stagger-item">
-        <a href="/">test@gmail.com</a>
-      </div> -->
     </div>
 <br><br>
     <ul class="list">
@@ -63,7 +54,7 @@ $.ajax({
       <li class="item mouse-effect stagger-item">
       <div class="left">
           <img src="${contextPath}/resources/img/icon/path.svg" />
-          <div class="name" style="color:black;">동선</div>
+          <div class="name" style="color:black;"> 동선 </div>
           </div>
         <div class="right"><img src="${contextPath}/resources/img/icon/right_arrow.svg" /></div>
       </li></a>
@@ -75,6 +66,16 @@ $.ajax({
 	          <div class="name" style="color:black;">즐겨찾기</div>
 	        </div>
 	        <div class="right"><img src="${contextPath}/resources/img/icon/right_arrow.svg" /></div>
+	      </li>  
+      </a>
+      
+      <a href="javascript:deleteMemberId('${member_id}');">
+      		<li class="item mouse-effect stagger-item">
+	      		<div class="left">
+		          <img src="${contextPath}/resources/img/icon/exit.png" width="24px"/>
+		          <div class="name" style="color:black;">회원탈퇴</div>
+		        </div>
+		        <div class="right"><img src="${contextPath}/resources/img/icon/right_arrow.svg"/></div>
 	      </li>  
       </a>
      </ul>

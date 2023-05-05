@@ -10,4 +10,6 @@ public interface MemberService {
 	public void addMember(MemberVO memberVO) throws Exception;
 	
 	public String overlapped(String id) throws Exception;
+	
+	public void removeMember(String id) throws Exception;
 }

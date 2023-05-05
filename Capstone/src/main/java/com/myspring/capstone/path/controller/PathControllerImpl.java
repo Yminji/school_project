@@ -239,37 +239,4 @@ public class PathControllerImpl extends BaseController{
 		return resEntity;
 	}
 	 
-	@RequestMapping(value="/modPath.do", method=RequestMethod.POST)
-	public ResponseEntity modPath(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		request.setCharacterEncoding("utf-8");
-		Map<String, Object> pathMap = new HashMap<String, Object>();
-		Enumeration enu = request.getParameterNames();
-		while(enu.hasMoreElements()) {
-			String name = (String)enu.nextElement();
-			String value = request.getParameter(name);
-			pathMap.put(name, value);
-		}
-		
-		String articleNO = (String)pathMap.get("articleNO");
-		String message;
-		ResponseEntity resEnt = null;
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {
-			pathService.modPath(pathMap);
-			message = "<script>";
-			message += " alert('글을 수정했습니다.');";
-			message += " location.href='"+request.getContextPath()+"/path/detail.do?articleNO="+articleNO+"';";
-			message +=" </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-		}catch(Exception e) {
-			message = "<script>";
-			message += " alert('글을 수정했습니다.');";
-			message += " location.href='"+request.getContextPath()+"/path/detail.do?articleNO="+articleNO+"';";
-			message +=" </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-		}
-		return resEnt;
-	}
-	
 }

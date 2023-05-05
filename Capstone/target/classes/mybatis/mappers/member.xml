@@ -38,4 +38,10 @@
 			)
 		]]>
 	</insert>
+	
+	<delete id="deleteMemberID" parameterType="String">
+		<![CDATA[
+			delete from member where member_id = #{member_id}
+		]]>
+	</delete> 
 </mapper>

@@ -26,6 +26,19 @@
      #tr_btn_modify{
        display:none;
      }
+    /* .zoom {
+	  width: 40%;
+	  height: auto;
+	  margin: 0 auto;
+	  transform: scale(1.0);
+      transition: transform .5s; 
+	}
+	
+	.zoom:hover {
+	  transform: scale(2.0);
+	  transition: .5s; 
+	}
+	.box{text-align: center;}*/
    </style>
    <script  src="http://code.jquery.com/jquery-latest.min.js"></script> 
    <script type="text/javascript" >
@@ -86,6 +99,7 @@
 	         reader.readAsDataURL(input.files[0]);
 	     }
 	 }  
+	 
  </script>
 </head>
 <body>
@@ -126,8 +140,10 @@
                 </div>
                 <c:choose>
                 <c:when test="${not empty article.imageFileName && article.imageFileName!='null' }">
+                	<div class="box">
                 	<input  type= "hidden"   name="originalFileName" value="${article.imageFileName }" />
-		    		<img width="20%" height="auto" src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${article.imageFileName}" id="preview"  /><br>
+		    		<img width="40%" height="auto" src="${contextPath}/download.do?articleNO=${article.articleNO}&imageFileName=${article.imageFileName}" class="zoom" id="preview"/><br>
+		    		</div>
 		    		<input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
     			</c:when>
     			<c:otherwise>

@@ -102,4 +102,15 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		System.out.println(result);
 		return resEntity;
 	}
+	
+	@RequestMapping(value="/removeMember.do", method=RequestMethod.POST)
+	public ModelAndView removeMember(@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		ModelAndView mav = new ModelAndView();
+		memberService.removeMember(id);
+		String message = "<script>";
+		message +=" alert("+id+"님의 회원 정보가 삭제되었습니다.)";
+		mav.addObject("message", message);
+		mav.setViewName("redirect:/member/loginForm.do");
+		return mav;
+	}
 }

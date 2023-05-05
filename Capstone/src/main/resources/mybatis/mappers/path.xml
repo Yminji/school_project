@@ -111,16 +111,6 @@
 			where articleNO = #{articleNO}
 		]]>
 	</select>
-	
-	<update id="updatePath"  parameterType="java.util.Map">
-			update t_plan
-			set title=#{title},	 
-			intro=#{intro},
-			s_date=#{s_date},
-			e_date=#{e_date}
-			
-			where articleNO=#{articleNO}
-	</update>
 
 	<select id="selectMapDetail" resultMap="mapResult" parameterType="int">
 		<![CDATA[
